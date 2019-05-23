@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <ImageView
+        android:layout_marginTop="@dimen/margin_top"
+        android:id="@+id/imagen_regla"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/regla1"
+        />
+
+    <TextView
+        android:id="@+id/text_regla"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Desconectar la Instalación: cortar en forma efectiva todas las fuentes de tensión"
+        android:textSize="@dimen/tamanio_regla"
+        android:textAlignment="center"
+        android:textColor="@color/colorSecondaryText"
+        android:textStyle="bold"
+        android:layout_marginStart="@dimen/margin_start"
+        android:layout_marginEnd="@dimen/margin_start"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/buttonOk"
+        android:layout_width="@dimen/ancho_boton"
+        android:layout_height="@dimen/ancho_boton"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:layout_marginTop="@dimen/margin_top"
+        app:srcCompat="@drawable/ic_ok" />
+
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/buttonCancelar"
+        android:layout_width="@dimen/ancho_boton"
+        android:layout_height="@dimen/ancho_boton"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:layout_marginTop="@dimen/margin_top"
+        app:srcCompat="@drawable/ic_cancelar" />
+</LinearLayout>

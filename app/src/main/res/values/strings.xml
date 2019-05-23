@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Gold Rules</string>
+
+    <!-- opciones -->
+
+    <string name="acerca">Acerca De...</string>
+    <string name="cerrar">Cerrar Sesión</string>
+    <string name="compartir">Compartir</string>
+    <string name="home">Principal</string>
+    <string name="configuracion">Configuración</string>
+    <string name="notificaciones">Notificaciones</string>
+    <string name="nav_header_subtitle">info@espaciojahiel.com</string>
+    <string name="action_settings">Settings</string>
+    <string name="menu_ingreso">Ingreso Usuario</string>
+    <string name="menu_guardar">Guardar</string>
+    <string name="title_activity_notifications">Notificaciones</string>
+    <string name="vacio">No hay Elementos</string>
+</resources>

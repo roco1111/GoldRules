@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1065293380024",
+    "firebase_url": "https://goldrules-a623e.firebaseio.com",
+    "project_id": "goldrules-a623e",
+    "storage_bucket": "goldrules-a623e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1065293380024:android:8f0604a3b53b1b61",
+        "android_client_info": {
+          "package_name": "com.rosario.hp.goldrules"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1065293380024-1chks6289vl3ang5l8t6ugd0kt76o0dl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rosario.hp.goldrules",
+            "certificate_hash": "8617142c9b3021143307687c1efe5ca018cfc5df"
+          }
+        },
+        {
+          "client_id": "1065293380024-3gjcuatt9jmfoinfiu7hk78gu7psiusm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFJewKqnErdURQZQtqjOKhJQ0JR0U3-2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1065293380024-3gjcuatt9jmfoinfiu7hk78gu7psiusm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
