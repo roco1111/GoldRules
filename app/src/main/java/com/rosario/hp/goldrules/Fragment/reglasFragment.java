@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,9 +33,6 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class reglasFragment extends Fragment {
@@ -42,8 +40,8 @@ public class reglasFragment extends Fragment {
     private ImageView imagen_regla;
 
     private TextView regla;
-    private CircleImageView ok;
-    private CircleImageView cancel;
+    private ImageButton ok;
+    private ImageButton cancel;
     static String TAG = "Reglas";
     private ArrayList<procedimiento> procedimientos;
     private String ls_cod_empleado;

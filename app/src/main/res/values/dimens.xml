@@ -12,4 +12,7 @@
     <dimen name="perfil_image_size">90dp</dimen>
     <dimen name="estrella">30dp</dimen>
     <dimen name="icono">50dp</dimen>
+    <dimen name="campos_width_medio">250dp</dimen>
+    <dimen name="headerbar_elevation">4dp</dimen>
+    <dimen name="campos_height">42dp</dimen>
 </resources>

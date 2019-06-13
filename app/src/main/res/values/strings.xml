@@ -15,4 +15,25 @@
     <string name="menu_guardar">Guardar</string>
     <string name="title_activity_notifications">Notificaciones</string>
     <string name="vacio">No hay Elementos</string>
+
+    <!-- datos empleados -->
+
+    <string name="clave_cliente">Contraseña</string>
+    <string name="olvido_contraseña">¿Olvidaste la contraseña?</string>
+    <string name="dialog_usuario">Ud. es un usuario registrado?</string>
+    <string name="menu_ingresar">Ingreso Usuario</string>
+    <string name="mail_cliente">Dirección de Email</string>
+    <string name="registro">REGISTRESE AQUI</string>
+    <string name="nombre_usuario">Nombre y Apellido</string>
+    <string name="confirmar_cliente">Confirmar Contraseña</string>
+    <string name="foto">Foto Perfil</string>
+    <string name="menu_registro">Crear Cuenta</string>
+    <string name="error_invalid_email">Email invalido</string>
+
+    <!-- Diálogos -->
+    <string name="dialogo_contrasenia">Restablecimiento de contraseña</string>
+    <string name="mensaje_contrasenia">Ingrese la dirección de correo electrónico que utilizó para registrarse.
+    Le enviaremos un mail con instrucciones para definir una nueva contraseña</string>
+    <string name="dialog_aceptar">Aceptar</string>
+
 </resources>

@@ -50,6 +50,10 @@ import com.rosario.hp.goldrules.include.Constantes;
 import com.rosario.hp.goldrules.include.VolleySingleton;
 import com.rosario.hp.goldrules.notificaciones.PushNotificationsPresenter;
 
+import org.altbeacon.beacon.Region;
+import org.altbeacon.beacon.powersave.BackgroundPowerSaver;
+import org.altbeacon.beacon.startup.BootstrapNotifier;
+import org.altbeacon.beacon.startup.RegionBootstrap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -60,9 +64,9 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements BootstrapNotifier {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
     public static final String ACTION_NOTIFY_NEW_PROMO = "NOTIFY_NEW_PROMO";
     private BroadcastReceiver mNotificationsReceiver;
     private PushNotificationsPresenter mPresenter;
@@ -81,6 +85,12 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     public static final int NOTIFICATION_ID = 1;
     public static final String ARG_ARTICLES_NUMBER = "fragment_presentacion";
+    private static final String TAG = "BeaconReferenceApp";
+    private RegionBootstrap regionBootstrap;
+    private BackgroundPowerSaver backgroundPowerSaver;
+    private boolean haveDetectedBeaconsSinceBoot = false;
+    private activity_comienzo monitoringActivity = null;
+    private String cumulativeLog = "";
     @SuppressLint("InlinedApi")
     private static final int PORTRAIT_ORIENTATION = Build.VERSION.SDK_INT < 9
             ? ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -167,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void sendNotification(View view) {
+    public void sendNotification() {
 
         // Use NotificationCompat.Builder to set up our notification.
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
@@ -227,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
             boolean t = savedInstanceState.getBoolean("restore");
             int s = savedInstanceState.getInt("nAndroids");
         }*/
-        setToolbar();
+        //setToolbar();
 
         drawerLayout =  findViewById(R.id.drawer_layout);
         NavigationView navigationView =  findViewById(R.id.nav_view);
@@ -551,4 +561,71 @@ public class MainActivity extends AppCompatActivity {
                 .show();
 
     }
+    public void disableMonitoring() {
+        if (regionBootstrap != null) {
+            regionBootstrap.disable();
+            regionBootstrap = null;
+        }
+    }
+    public void enableMonitoring() {
+        Region region = new Region("backgroundRegion",
+                null, null, null);
+        regionBootstrap = new RegionBootstrap(this, region);
+    }
+
+
+    @Override
+    public void didEnterRegion(Region arg0) {
+        // In this example, this class sends a notification to the user whenever a Beacon
+        // matching a Region (defined above) are first seen.
+        Log.d(TAG, "did enter region.");
+        if (!haveDetectedBeaconsSinceBoot) {
+            Log.d(TAG, "auto launching MainActivity");
+
+            // The very first time since boot that we detect an beacon, we launch the
+            // MainActivity
+            Intent intent = new Intent(this, activity_comienzo.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            // Important:  make sure to add android:launchMode="singleInstance" in the manifest
+            // to keep multiple copies of this activity from getting created if the user has
+            // already manually launched the app.
+            this.startActivity(intent);
+            haveDetectedBeaconsSinceBoot = true;
+        } else {
+            if (monitoringActivity != null) {
+                // If the Monitoring Activity is visible, we log info about the beacons we have
+                // seen on its display
+                logToDisplay("I see a beacon again" );
+            } else {
+                // If we have already seen beacons before, but the monitoring activity is not in
+                // the foreground, we send a notification to the user on subsequent detections.
+                Log.d(TAG, "Sending notification.");
+                sendNotification();
+            }
+        }
+
+
+    }
+
+    @Override
+    public void didExitRegion(Region region) {
+        logToDisplay("I no longer see a beacon.");
+    }
+
+    @Override
+    public void didDetermineStateForRegion(int state, Region region) {
+        logToDisplay("Current region state is: " + (state == 1 ? "INSIDE" : "OUTSIDE ("+state+")"));
+    }
+
+    private void logToDisplay(String line) {
+        cumulativeLog += (line + "\n");
+        if (this.monitoringActivity != null) {
+           // this.monitoringActivity.updateLog(cumulativeLog);
+        }
+    }
+
+    public String getLog() {
+        return cumulativeLog;
+    }
+
 }

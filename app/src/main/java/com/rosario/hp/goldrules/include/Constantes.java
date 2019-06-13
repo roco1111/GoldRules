@@ -11,4 +11,11 @@ public class Constantes {
     public static final String INSERT_PROCEDIMIENTO = "https://" + IP + PUERTO_HOST + "/agregar_procedimiento.php";
     public static final String GET_MAX_PROCEDIMIENTO = "https://" + IP + PUERTO_HOST + "/agregar_procedimiento.php";
 
+    public static final String GET_BY_CLAVE = "https://" + IP + PUERTO_HOST + "/agregar_procedimiento.php";
+
+    /**
+     * Clave para el valor extra que representa al identificador de un empleado
+     */
+    public static final String EXTRA_ID = "IDEXTRA";
+
 }

@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="0dp"
+        android:layout_height="245dp"
+        app:srcCompat="@drawable/inicio" />
+
+
+    <Button
+        android:id="@+id/buttonIngreso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="24dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/menu_ingresar"
+        android:textColor="@color/colorSecondaryText"
+        tools:ignore="RtlHardcoded" />
+
+    <Button
+        android:id="@+id/buttonRegistro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/menu_registro"
+        android:textColor="@color/colorSecondaryText" />
+
+</LinearLayout>
