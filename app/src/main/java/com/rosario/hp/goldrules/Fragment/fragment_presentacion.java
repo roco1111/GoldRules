@@ -1,17 +1,13 @@
 package com.rosario.hp.goldrules.Fragment;
 
-
-import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
+import android.os.Bundle;
+
 import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -23,31 +19,26 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.content.Context;
-import android.os.Bundle;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.app.DatePickerDialog;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.rosario.hp.goldrules.Entidades.empleados;
+import com.rosario.hp.goldrules.Entidades.empresa;
 import com.rosario.hp.goldrules.MainActivity;
+import com.rosario.hp.goldrules.SpinAdapter.spinEmpresa;
 import com.rosario.hp.goldrules.include.Constantes;
 import com.rosario.hp.goldrules.include.DialogUtils;
 import com.rosario.hp.goldrules.R;
@@ -70,12 +61,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.android.volley.Request;
 
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.JsonObjectRequest;
 import com.android.volley.DefaultRetryPolicy;
 
 import com.rosario.hp.goldrules.include.NothingSelectedSpinnerAdapter;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -84,14 +76,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import java.util.Map;
 
@@ -111,24 +97,20 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
     private TextView tvConfirmacion = null;
     private TextView tvMail = null;
     private Button editar_foto;
-    private ImageButton button_fecha;
-    private TextView tvFecha = null;
     private static final String TAG = fragment_presentacion.class.getSimpleName();
     public static final String ARG_ARTICLES_NUMBER = "fragment_presentacion";
     private CallbackManager callbackManager;
-    private ProgressDialog m_Dialog_face = null;
     AccessToken accessToken;
     private AuthCredential credential;
     private JsonObjectRequest myRequest;
     private Gson gson = new Gson();
-    private String ls_cod_usuario;
+    private String ls_cod_empleado;
     private ProgressDialog m_Dialog = null;
     private String ls_contrasena;
     private String ls_nombre;
     private String ls_mail;
     private TextView olvidaste;
     private String ls_confirmacion;
-    private String ls_fecha;
     private Dialog alerta;
     Toast toast1;
     private LoginInteractor.Callback mCallback;
@@ -143,13 +125,15 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
     private FirebaseAuth mAuth = null;
     private static FirebaseAuth.AuthStateListener mAuthListener;
     Activity act;
-    private static int SELECT_PICTURE = 2;
     StorageReference storageRef;
     private FirebaseStorage storage;
     private Bitmap loadedImage;
     Uri imageUri;
     Context context;
     private CircleImageView imagen;
+    private String ls_empresa;
+    private Spinner sp_empresa;
+    private ArrayList<empresa> empresas;
 
 
     public fragment_presentacion() {}
@@ -269,12 +253,9 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
         View v = inflater.inflate(R.layout.activity_presentacion, container, false);
         this.ingreso =  v.findViewById(R.id.buttonIngreso) ;
         this.registro =  v.findViewById(R.id.buttonRegistro);
+        empresas = new ArrayList<>();
 
-
-
-
-
-        ///FIREBASE////
+      ///FIREBASE////
         mFirebaseAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -303,6 +284,8 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
         });
 
 
+
+
         return v;
     }
 
@@ -311,12 +294,12 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
 
         // Añadir parámetro a la URL del web service
         String newURL = Constantes.GET_BY_CLAVE + "?mail=" + ls_mail;
-
+        Log.d(TAG,newURL);
 
         // Realizar petición GET_BY_ID
         VolleySingleton.getInstance(context).addToRequestQueue(
                 myRequest = new JsonObjectRequest(
-                        Request.Method.GET,
+                        Request.Method.POST,
                         newURL,
                         null,
                         new Response.Listener<JSONObject>() {
@@ -351,24 +334,25 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
             switch (mensaje) {
                 case "1":
                     // Obtener objeto "usuario"
-                    JSONObject object = response.getJSONObject("empleado");
+                    JSONObject object = response.getJSONObject("empleados");
 
                     //Parsear objeto
-                    empleados codigoUsuario = gson.fromJson(object.toString(), empleados.class);
+                    empleados codigoEmpleado = gson.fromJson(object.toString(), empleados.class);
 
                     // Seteando valores en los views
-                    ls_cod_usuario = codigoUsuario.getId();
-                    ls_nombre = codigoUsuario.getNombre();
+                    ls_cod_empleado = codigoEmpleado.getId();
+                    ls_nombre = codigoEmpleado.getNombre();
+                    ls_empresa = codigoEmpleado.getIdempresa();
 
 
                     Intent intent2 = new Intent(act,MainActivity.class);
                     SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(act);
                     SharedPreferences.Editor editor = settings.edit();
 
-                    editor.putString("cod_usuario", ls_cod_usuario);
+                    editor.putString("cod_empleado", ls_cod_empleado);
                     editor.putString("mail", ls_mail);
                     editor.putString("nombre", ls_nombre);
-                    editor.putString("fecha_nac", ls_fecha);
+                    editor.putString("empresa", ls_empresa);
 
                     editor.apply();
                     actualizar_token(id_firebase);
@@ -414,54 +398,17 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
 
         builder.setView(v);
 
+        obtenerEmpresas(getContext());
+
         tvNombre = v.findViewById(R.id.editTextNombre);
         tvClave = v.findViewById(R.id.editTextClave);
         tvConfirmacion = v.findViewById(R.id.editTextConfirmar);
         tvMail = v.findViewById(R.id.editTextMail);
         editar_foto = v.findViewById(R.id.buttonFoto);
         imagen =  v.findViewById(R.id.imageViewfoto);
-
-        button_fecha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String ls_fecha = tvFecha.getText().toString();
-                Date datetxt1 = null;
-
-                if(ls_fecha.equals("")) {
-                    datetxt1 = Calendar.getInstance().getTime();
-                }else {
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-                    try {
-                        datetxt1 = sdf.parse(ls_fecha);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                }
-                final Calendar c = Calendar.getInstance();
-                c.setTime(datetxt1);
-                int mYear = c.get(Calendar.YEAR); // current year
-                int mMonth = c.get(Calendar.MONTH); // current month
-                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+        sp_empresa = v.findViewById(R.id.spinnerEmpresa);
 
 
-
-                // date picker dialog
-                datePickerDialog = new DatePickerDialog(getContext(),
-                        new DatePickerDialog.OnDateSetListener() {
-
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                // set day of month , month and year value in the edit text
-                                tvFecha.setText(dayOfMonth + "/"
-                                        + (monthOfYear + 1) + "/" + year);
-
-                            }
-                        }, mYear, mMonth, mDay);
-                datePickerDialog.show();
-            }
-        });
 
         editar_foto.setVisibility(View.INVISIBLE);
         imagen.setVisibility(View.INVISIBLE);
@@ -478,7 +425,6 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
                         ls_confirmacion = tvConfirmacion.getText().toString();
                         ls_nombre = tvNombre.getText().toString();
                         ls_mail = tvMail.getText().toString();
-                        ls_fecha = tvFecha.getText().toString();
                         Boolean lb_compara;
 
                         if( ls_nombre.equals(""))
@@ -507,18 +453,6 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
                             tvMail.setHintTextColor(getResources().getColor(R.color.colorRippleMini));
                         }
 
-                        if( ls_fecha.equals(""))
-                        {
-                            tvFecha.setHintTextColor(Color.RED);
-                            tvFecha.requestFocus();
-                            toast1 = Toast.makeText(getContext(), "Debe ingresar su fecha de nacimiento... " , Toast.LENGTH_LONG);
-                            toast1.setGravity(19, 0, 0);
-                            toast1.show();
-                            return;
-
-                        }else {
-                            tvFecha.setHintTextColor(getResources().getColor(R.color.colorRippleMini));
-                        }
 
                         if( ls_contrasena.equals("")){
                             tvClave.setHintTextColor(Color.RED);
@@ -559,7 +493,7 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
-                                            guardarUsuario( context);
+                                            guardarEmpleado( context);
                                         } else {
                                             // If sign in fails, display a message to the user.
                                             String ls_error;
@@ -598,14 +532,14 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
         return builder.create();
     }
 
-    private class guardarUsuario extends AsyncTask<Void, Void, Void> {
+    private class agregar_empleado extends AsyncTask<Void, Void, Void> {
 
         private Context mContext;
         private String mUrl;
 
 
 
-        public guardarUsuario(String url,Context context) {
+        public agregar_empleado(String url,Context context) {
             mContext = context;
             mUrl = url;
         }
@@ -631,7 +565,7 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
 
 
 
-    public void guardarUsuario(final Context context) {
+    public void guardarEmpleado(final Context context) {
 
 
         // Sign in success, update UI with the signed-in user's information
@@ -639,23 +573,15 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
 
         id_firebase =  mAuth.getCurrentUser().getIdToken(true).toString();
 
-
-        SimpleDateFormat inDateFmt = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat outDateFmt = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date date = inDateFmt.parse(ls_fecha);
-            ls_fecha= outDateFmt.format(date);
-        } catch (ParseException ex) {
-            System.out.println(ex.toString());
-        }
+        String empresa = ((empresa) sp_empresa.getSelectedItem()).getId().toString();
 
 
         HashMap<String, String> map = new HashMap<>();// Mapeo previo
         map.put("nombre", ls_nombre);
         map.put("mail", ls_mail);
         map.put("id_firebase", id_firebase);
-        map.put("fecha_nac", ls_fecha);
         map.put("clave", ls_contrasena);
+        map.put("idempresa", empresa);
         JSONObject jobject = new JSONObject(map);
 
 
@@ -676,9 +602,11 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
 
         encodedParams.setLength(Math.max(encodedParams.length() - 1, 0));
 
-        //String newURL = Constantes.INSERT_USUARIO + "?" + encodedParams;
+        String newURL = Constantes.INSERT_EMPLEADO + "?" + encodedParams;
 
-        //voley(newURL,context);
+        Log.d(TAG,newURL);
+
+        voley(newURL,context);
 
     }
 
@@ -962,7 +890,7 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
 
         HashMap<String, String> map = new HashMap<>();// Mapeo previo
 
-        map.put("id", ls_cod_usuario);
+        map.put("id", ls_cod_empleado);
         map.put("id_firebase", token);
 
         JSONObject jobject = new JSONObject(map);
@@ -1053,7 +981,7 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
         // Realizar petición GET_BY_ID
         VolleySingleton.getInstance(context).addToRequestQueue(
                 myRequest = new JsonObjectRequest(
-                        Request.Method.GET,
+                        Request.Method.POST,
                         newURL,
                         null,
                         new Response.Listener<JSONObject>() {
@@ -1088,13 +1016,15 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
             switch (mensaje) {
                 case "1":
                     // Obtener objeto "usuario"
-                    JSONObject object = response.getJSONObject("usuario");
+                    JSONObject object = response.getJSONObject("empleados");
 
                     //Parsear objeto
-                    empleados datosUsuario = gson.fromJson(object.toString(), empleados.class);
+                    empleados datosEmpleado = gson.fromJson(object.toString(), empleados.class);
 
                     // Seteando valores en los views
-                    ls_cod_usuario = datosUsuario.getId();
+                    ls_cod_empleado = datosEmpleado.getId();
+                    ls_mail = datosEmpleado.getMail();
+                    ls_nombre = datosEmpleado.getNombre();
 
 
                     Intent intent2 = new Intent(act,MainActivity.class);
@@ -1102,7 +1032,7 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
                     SharedPreferences.Editor editor = settings.edit();
 
                     editor.putString("mail", ls_mail);
-                    editor.putString("cod_usuario", ls_cod_usuario);
+                    editor.putString("cod_empleado", ls_cod_empleado);
                     editor.putString("nombre", ls_nombre);
 
 
@@ -1129,5 +1059,148 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
             e.printStackTrace();
         }
 
+    }
+
+    public void obtenerEmpresas(final Context context) {
+
+        // Añadir parámetro a la URL del web service
+        String newURL = Constantes.GET_EMPRESAS;
+
+        Log.d(TAG,newURL);
+
+
+        // Realizar petición GET_BY_ID
+        VolleySingleton.getInstance(context).addToRequestQueue(
+                myRequest = new JsonObjectRequest(
+                        Request.Method.POST,
+                        newURL,
+                        null,
+                        new Response.Listener<JSONObject>() {
+
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // Procesar respuesta Json
+                                procesarRespuesta_empresas(response, context);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d(TAG, "Error Volley: " + error.getMessage());
+                            }
+                        }
+                )
+        );
+        myRequest.setRetryPolicy(new DefaultRetryPolicy(
+                50000,
+                5,//DefaultRetryPolicy.DEFAULT_MAX_RETRIES
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+    }
+
+    private void procesarRespuesta_empresas(JSONObject response, Context context) {
+
+        try {
+            // Obtener atributo "mensaje"
+            String mensaje = response.getString("estado");
+
+            switch (mensaje) {
+                case "1":
+                    // Obtener objeto "usuario"
+                    JSONArray mensaje1 = response.getJSONArray("empresa");
+                    empresas.clear();
+                    for(int i = 0; i < mensaje1.length(); i++) {
+                        JSONObject object = mensaje1.getJSONObject(i);
+
+                        empresa emp = new empresa("","");
+
+                        String id = object.getString("ID");
+
+                        emp.setId(id);
+
+                        String nomempresa = object.getString("NOM_EMPRESA");
+
+                        emp.setNom_empresa(nomempresa);
+
+                        empresas.add(emp);
+
+                    }
+
+                    new loadEmpresasItemsTask(getContext(),empresas.get(0).getId()).execute();
+
+                    break;
+
+
+                case "2":
+                    String mensaje3 = response.getString("mensaje");
+                    Toast.makeText(
+                            context,
+                            mensaje3,
+                            Toast.LENGTH_LONG).show();
+                    break;
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    class loadEmpresasItemsTask extends AsyncTask<String, Integer, String> {
+        private final Context context;
+        private final String empresa;
+
+
+        public loadEmpresasItemsTask(Context context, String empresa) {
+
+            this.context=context;
+            this.empresa=empresa;
+        }
+
+        protected void onPreExecute (){
+        }
+        protected String doInBackground(String... params) {
+
+
+            String txt ="";
+            empresas.add(0,new empresa("0","Elija una empresa"));
+            act.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                    spinEmpresa adapter = new spinEmpresa(act.getApplicationContext(),
+                            android.R.layout.simple_spinner_item,
+                            empresas);
+
+                    // Specify the layout to use when the list of choices appears
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                    sp_empresa.setAdapter(adapter);
+                    if (empresa.equals("0")){
+                        sp_empresa.setSelection(0);
+                    }else{
+                        int i=0;
+                        int posicion=0;
+                        for(empresa itemEmpresa:empresas){
+                            if (itemEmpresa.getId().equals(empresa)){
+                                posicion=i;
+                            }
+                            i++;
+                        }
+                        sp_empresa.setSelection(posicion);
+                    }
+
+
+                }
+            });
+
+
+            return txt;
+        }
+        protected void onProgressUpdate(Integer...a){
+        }
+        protected void onPostExecute(String result) {
+        }
     }
 }

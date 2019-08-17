@@ -26,8 +26,8 @@ import android.widget.Toast;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.JsonObjectRequest;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseNetworkException;
@@ -41,6 +41,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.rosario.hp.goldrules.MainActivity;
 import com.rosario.hp.goldrules.R;
 
+import com.rosario.hp.goldrules.activity_beacon;
 import com.rosario.hp.goldrules.include.Constantes;
 import com.rosario.hp.goldrules.include.DialogUtils;
 import com.rosario.hp.goldrules.include.VolleySingleton;
@@ -399,7 +400,7 @@ public class login extends Fragment implements LoginInteractor.Callback{
 
 
 
-                    Intent intent2 = new Intent(context, MainActivity.class);
+                    Intent intent2 = new Intent(context, activity_beacon.class);
                     SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
                     SharedPreferences.Editor editor = settings.edit();
 

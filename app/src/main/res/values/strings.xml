@@ -29,11 +29,32 @@
     <string name="foto">Foto Perfil</string>
     <string name="menu_registro">Crear Cuenta</string>
     <string name="error_invalid_email">Email invalido</string>
+    <string name="empresa">Empresa</string>
 
     <!-- Diálogos -->
     <string name="dialogo_contrasenia">Restablecimiento de contraseña</string>
     <string name="mensaje_contrasenia">Ingrese la dirección de correo electrónico que utilizó para registrarse.
     Le enviaremos un mail con instrucciones para definir una nueva contraseña</string>
     <string name="dialog_aceptar">Aceptar</string>
+    <string name="terminado">Proceso Terminado</string>
+
+    <!-- Beacon -->
+
+    <string name="start_button_text">Comenzar</string>
+    <string name="stop_button_text">Parar</string>
+    <string name="location_access_needed">Esta aplicación necesita acceso a la localización</string>
+    <string name="grant_location_access">Por favor conceda permisos de localización para que la aplicación pueda detectar beacons</string>
+    <string name="not_support_bluetooth_msg">Este dispositivo no soporta bluetooth, no es posible buscar beacons</string>
+    <string name="cancel_button_text">Cancelar</string>
+    <string name="location_disabled">Localización en modo alta precisión no activado</string>
+    <string name="location_settings">Abrir ajustes de localización</string>
+    <string name="location_not_granted">Ya que el permiso de localización no ha sido concedido,</string>
+    <string name="cannot_discover_beacons">esta aplicación no podrá buscar beacons</string>
+    <string name="funcionality_limited">Funcionalidad limitada</string>
+    <string name="no_bluetooth_msg">Con el bluetooth desactivado no es posible buscar beacons</string>
+    <string name="start_looking_for_beacons">Empezando a buscar beacons</string>
+    <string name="stop_looking_for_beacons">Parando la búsqueda de beacons</string>
+    <string name="no_beacons_detected">No se han encontrado beacons</string>
+    <string name="beacon_detected">Beacon %1$s detectada!!</string>
 
 </resources>

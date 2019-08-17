@@ -5,21 +5,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
-import com.rosario.hp.goldrules.MainActivity;
 import com.rosario.hp.goldrules.R;
-import com.rosario.hp.goldrules.activity_comienzo;
+import com.rosario.hp.goldrules.reglas_activity;
 
 
 public class principalFragment extends Fragment {
@@ -56,7 +53,7 @@ public class principalFragment extends Fragment {
         comenzar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), activity_comienzo.class);
+                Intent intent = new Intent(getContext(), reglas_activity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getContext().startActivity(intent);
             }

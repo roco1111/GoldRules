@@ -9,4 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Comenzar" />
+    <Button
+        android:id="@+id/terminar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Terminar" />
 </LinearLayout>

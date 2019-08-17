@@ -15,11 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "1065293380024-1chks6289vl3ang5l8t6ugd0kt76o0dl.apps.googleusercontent.com",
+          "client_id": "1065293380024-d6g1v9lis3a6h1fln71b3trhroca33jg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.rosario.hp.goldrules",
             "certificate_hash": "8617142c9b3021143307687c1efe5ca018cfc5df"
+          }
+        },
+        {
+          "client_id": "1065293380024-tsjm2p447jbmqfr47c28mfe1m9ajcpfv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rosario.hp.goldrules",
+            "certificate_hash": "ba13fb7710c1c3a3a712dd325a77f27f8aac1b9f"
           }
         },
         {

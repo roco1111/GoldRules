@@ -54,18 +54,18 @@ public class SplashScreenActivity extends Activity {
                 id_firebase = FirebaseInstanceId.getInstance().getToken();
                 currentUser = mAuth.getCurrentUser();
 
-                if (currentUser != null) {
+                if (currentUser == null) {
                      //Start the next activity
 
                     Intent mainIntent = new Intent().setClass(
-                           SplashScreenActivity.this, MainActivity.class);
+                           SplashScreenActivity.this, activity_comienzo.class);
                    startActivity(mainIntent);
 
 
                 }else{
 
                    Intent mainIntent = new Intent().setClass(
-                            SplashScreenActivity.this, activity_comienzo.class);
+                            SplashScreenActivity.this, activity_beacon.class);
                     startActivity(mainIntent);
 
               }

@@ -62,13 +62,33 @@
             android:textColor="@color/colorPrimaryText"
             android:textColorHint="@color/colorAccent" />
 
+        <TextView
+            android:id="@+id/textEmpresa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextMail"
+            android:hint="@string/empresa"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/colorPrimaryText"
+            android:textColorHint="@color/colorAccent" />
+
+        <Spinner
+            android:id="@+id/spinnerEmpresa"
+            android:layout_below="@+id/textEmpresa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+
+            android:layout_marginTop="8dp" />
+
 
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/login_password_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editTextMail"
+            android:layout_below="@+id/spinnerEmpresa"
             android:textColor="@color/colorPrimaryText"
             android:textColorHint="@color/colorAccent"
             app:passwordToggleEnabled="true"

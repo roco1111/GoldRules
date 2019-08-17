@@ -12,8 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.rosario.hp.goldrules.Fragment.login;
-import com.rosario.hp.goldrules.Fragment.reglasFragment;
+import com.rosario.hp.goldrules.Fragment.fragment_presentacion;
 
 public class activity_comienzo extends AppCompatActivity {
 
@@ -39,8 +38,8 @@ public class activity_comienzo extends AppCompatActivity {
 
             switch (posicion) {
                 case R.id.nav_ingreso:
-                    fragment = new login();
-                    args1.putInt(login.ARG_ARTICLES_NUMBER, posicion);
+                    fragment = new fragment_presentacion();
+                    args1.putInt(fragment_presentacion.ARG_ARTICLES_NUMBER, posicion);
                     break;
 
 
@@ -87,15 +86,15 @@ public class activity_comienzo extends AppCompatActivity {
 
         setToolbar(); // Setear Toolbar como action bar
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        drawerLayout =  findViewById(R.id.drawer_layout);
+        NavigationView navigationView =  findViewById(R.id.nav_view);
 
         Fragment fragment = null;
-        fragment = new login();
+        fragment = new fragment_presentacion();
 
 
         Bundle args1 = new Bundle();
-        args1.putInt(login.ARG_ARTICLES_NUMBER, R.id.nav_ingreso);
+        args1.putInt(fragment_presentacion.ARG_ARTICLES_NUMBER, R.id.nav_ingreso);
         fragment.setArguments(args1);
 
         navigationView.setItemIconTintList(null);
@@ -129,8 +128,8 @@ public class activity_comienzo extends AppCompatActivity {
 
                         switch (menuItem.getItemId()) {
                             case R.id.nav_ingreso:
-                                fragment = new login();
-                                args1.putInt(login.ARG_ARTICLES_NUMBER, menuItem.getItemId());
+                                fragment = new fragment_presentacion();
+                                args1.putInt(fragment_presentacion.ARG_ARTICLES_NUMBER, menuItem.getItemId());
                                 fragmentTransaction = true;
                                 break;
 
@@ -169,7 +168,7 @@ public class activity_comienzo extends AppCompatActivity {
         getSupportActionBar().setTitle("Reglas");
     }
     private void setToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         final ActionBar ab = getSupportActionBar();
         if (ab != null) {

@@ -6,12 +6,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,11 +30,9 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.JsonObjectRequest;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -123,7 +117,7 @@ public class MainActivity extends AppCompatActivity
         Bundle args1 = new Bundle();
 
 
-        /*
+
 
         if (posicion != 0) {
 
@@ -131,28 +125,6 @@ public class MainActivity extends AppCompatActivity
                 case R.id.nav_home:
                     fragment = new principalFragment();
                     args1.putInt(principalFragment.ARG_ARTICLES_NUMBER, posicion);
-                    break;
-                case R.id.nav_notificaciones:
-                    fragment = new notificacionesFragment();
-                    args1.putInt(notificacionesFragment.ARG_ARTICLES_NUMBER, posicion);
-                    break;
-
-                case R.id.nav_mensajes_guardados:
-                    fragment = new mensajesUsuarioFragment();
-                    args1.putInt(mensajesUsuarioFragment.ARG_ARTICLES_NUMBER, posicion);
-                    break;
-                case R.id.nav_mis_fondo:
-                    fragment = new imagenesUsuarioFragment();
-                    args1.putInt(imagenesUsuarioFragment.ARG_ARTICLES_NUMBER, posicion);
-                    break;
-
-                case R.id.nav_configuracion:
-                    fragment = new datosUsuarios();
-                    args1.putInt(datosUsuarios.ARG_ARTICLES_NUMBER, posicion);
-                    break;
-                case R.id.nav_acerca:
-                    fragment = new acercaFragment();
-                    args1.putInt(acercaFragment.ARG_ARTICLES_NUMBER, posicion);
                     break;
                 default:
                     posicion_string = String.valueOf(R.id.nav_home);
@@ -172,7 +144,7 @@ public class MainActivity extends AppCompatActivity
                         .replace(R.id.main_content, fragment)
                         .commit();
 
-        }*/
+        }
 
 
     }
@@ -232,12 +204,12 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
         mAutoRotation = Settings.System.getInt(this.getContentResolver(),
                 Settings.System.ACCELEROMETER_ROTATION, 0) == 1;
-        /*
-        if (savedInstanceState != null) {
+
+        /*if (savedInstanceState != null) {
             boolean t = savedInstanceState.getBoolean("restore");
             int s = savedInstanceState.getInt("nAndroids");
         }*/
-        //setToolbar();
+        setToolbar();
 
         drawerLayout =  findViewById(R.id.drawer_layout);
         NavigationView navigationView =  findViewById(R.id.nav_view);
@@ -298,7 +270,7 @@ public class MainActivity extends AppCompatActivity
 
                         boolean fragmentTransaction = false;
                         Fragment fragment = null;
-                        /*
+
 
                         switch (menuItem.getItemId()) {
 
@@ -306,28 +278,7 @@ public class MainActivity extends AppCompatActivity
                                 fragment = new principalFragment();
                                 fragmentTransaction = true;
                                 break;
-                            case R.id.nav_mensajes_guardados:
-                                fragment = new mensajesUsuarioFragment();
-                                fragmentTransaction = true;
-                                break;
-                            case R.id.nav_mis_fondo:
-                                fragment = new imagenesUsuarioFragment();
-                                fragmentTransaction = true;
-                                break;
-                            case R.id.nav_acerca:
-                                fragment = new acercaFragment();
-                                fragmentTransaction = true;
-                                break;
-                            case R.id.nav_notificaciones:
-                                fragment = new notificacionesFragment();
-                                fragmentTransaction = true;
-                                break;
 
-                            case R.id.nav_configuracion:
-                                fragment = new datosUsuarios();
-                                fragmentTransaction = true;
-
-                                break;
 
                             case R.id.nav_cerrar:
                                 cerrar_sesion();
@@ -363,7 +314,7 @@ public class MainActivity extends AppCompatActivity
                             getSupportActionBar().setTitle(menuItem.getTitle());
                         }
 
-                        drawerLayout.closeDrawers();*/
+                        drawerLayout.closeDrawers();
 
                         return true;
                     }
@@ -418,9 +369,9 @@ public class MainActivity extends AppCompatActivity
 
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        id_usuario = settings.getString("cod_usuario","0");
+        id_usuario = settings.getString("cod_empleado","0");
 
-        String mChild = "usuarios/" + id_usuario  + ".jpg";
+        String mChild = "empleados/" + id_usuario  + ".jpg";
         final StorageReference filepath = storageRef.child(mChild);
 
         /*GlideApp.with(getApplicationContext())
@@ -438,7 +389,7 @@ public class MainActivity extends AppCompatActivity
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        id_usuario = settings.getString("cod_usuario","0");
+        id_usuario = settings.getString("cod_empleado","0");
         HashMap<String, String> map = new HashMap<>();// Mapeo previo
 
         map.put("id", id_usuario);

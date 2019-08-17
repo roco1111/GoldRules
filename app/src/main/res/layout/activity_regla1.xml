@@ -18,7 +18,7 @@
         android:layout_marginTop="@dimen/margin_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Desconectar la Instalación: cortar en forma efectiva todas las fuentes de tensión"
+        android:text="regla1"
         android:textSize="@dimen/tamanio_regla"
         android:textAlignment="center"
         android:textColor="@color/colorSecondaryText"
@@ -32,10 +32,12 @@
         android:layout_width="@dimen/ancho_boton"
         android:layout_height="@dimen/ancho_boton"
         android:layout_gravity="center"
-        android:clickable="true"
         android:layout_marginTop="@dimen/margin_top"
+        android:adjustViewBounds="false"
+        android:clickable="true"
+        app:fabSize="auto"
+        app:maxImageSize="80dp"
         app:srcCompat="@drawable/ic_ok" />
-
 
 
     <android.support.design.widget.FloatingActionButton
@@ -43,7 +45,8 @@
         android:layout_width="@dimen/ancho_boton"
         android:layout_height="@dimen/ancho_boton"
         android:layout_gravity="center"
-        android:clickable="true"
         android:layout_marginTop="@dimen/margin_top"
+        android:clickable="true"
+        app:maxImageSize="80dp"
         app:srcCompat="@drawable/ic_cancelar" />
 </LinearLayout>
