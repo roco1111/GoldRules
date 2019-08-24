@@ -38,4 +38,37 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
     </style>
+	
+	<style name="AppTheme.PreferenceTheme" parent="PreferenceThemeOverlay.v14.Material">
+
+    </style>
+
+    <!-- ToolBar -->
+    <style name="AppTheme.ToolBarStyle" parent="Theme.AppCompat.Light">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/primary_light</item>
+        <item name="android:textColorSecondary">@color/primary_light</item>
+        <item name="actionMenuTextColor">@color/colorAccent</item>
+    </style>
+
+
+    <style name="GridLayoutTitleTextView" parent="android:Widget.TextView">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="GridLayoutDataTextView" parent="android:Widget.TextView">
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:ellipsize">none</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:scrollHorizontally">false</item>
+        <item name="android:maxLines">100</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="GridLayoutDataTextViewMonospace" parent="@style/GridLayoutDataTextView">
+        <item name="android:typeface">monospace</item>
+    </style>
 </resources>

@@ -15,4 +15,8 @@
     <dimen name="campos_width_medio">250dp</dimen>
     <dimen name="headerbar_elevation">4dp</dimen>
     <dimen name="campos_height">42dp</dimen>
+
+    <dimen name="padding_small">4dp</dimen>
+    <dimen name="padding_medium">8dp</dimen>
+    <dimen name="padding_large">16dp</dimen>
 </resources>

@@ -38,10 +38,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.rosario.hp.goldrules.MainActivity;
+import com.rosario.hp.goldrules.MainActivityBeacon;
 import com.rosario.hp.goldrules.R;
 
-import com.rosario.hp.goldrules.activity_beacon;
 import com.rosario.hp.goldrules.include.Constantes;
 import com.rosario.hp.goldrules.include.DialogUtils;
 import com.rosario.hp.goldrules.include.VolleySingleton;
@@ -400,7 +399,7 @@ public class login extends Fragment implements LoginInteractor.Callback{
 
 
 
-                    Intent intent2 = new Intent(context, activity_beacon.class);
+                    Intent intent2 = new Intent(context, MainActivityBeacon.class);
                     SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
                     SharedPreferences.Editor editor = settings.edit();
 

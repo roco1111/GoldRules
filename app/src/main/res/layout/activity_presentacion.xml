@@ -1,9 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/imageView"
@@ -23,7 +24,7 @@
         android:layout_height="wrap_content"
 
         android:layout_marginTop="24dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/boton"
         android:text="@string/menu_ingresar"
         android:textColor="@color/colorSecondaryText"
         tools:ignore="RtlHardcoded" />
@@ -33,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/boton"
         android:text="@string/menu_registro"
         android:textColor="@color/colorSecondaryText" />
 

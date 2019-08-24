@@ -99,6 +99,8 @@ public class MainActivity extends AppCompatActivity
     public void refreshMyData(){
         actualizar_foto();
     }
+
+
     @Override
     public void onResume() {
         super.onResume();

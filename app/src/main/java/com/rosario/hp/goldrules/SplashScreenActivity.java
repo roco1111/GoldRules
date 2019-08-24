@@ -58,14 +58,14 @@ public class SplashScreenActivity extends Activity {
                      //Start the next activity
 
                     Intent mainIntent = new Intent().setClass(
-                           SplashScreenActivity.this, activity_comienzo.class);
+                           SplashScreenActivity.this, MainActivityBeacon.class);
                    startActivity(mainIntent);
 
 
                 }else{
 
                    Intent mainIntent = new Intent().setClass(
-                            SplashScreenActivity.this, activity_beacon.class);
+                            SplashScreenActivity.this, MainActivityBeacon.class);
                     startActivity(mainIntent);
 
               }

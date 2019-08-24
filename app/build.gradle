@@ -32,8 +32,16 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "DEV_MODE", "false"
+        }
+        debug {
+            minifyEnabled false
+            ext.alwaysUpdateBuildId = false
+            buildConfigField "boolean", "DEV_MODE", "true"
+
         }
     }
     packagingOptions {
@@ -56,11 +64,27 @@ android {
         }
     }
 }
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.28.1'
+    }
+}
+
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'dev.dworks.libs:volleyplus:+'
     implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation "com.android.support:support-v13:28.0.0"
+    implementation "com.android.support:preference-v14:28.0.0"
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.google.code.gson:gson:2.8.2'
     testImplementation 'junit:junit:4.12'
@@ -80,5 +104,18 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.2.1'
     implementation 'org.altbeacon:android-beacon-library:2.15.4'
     implementation 'com.google.android.gms:play-services:12.+'
+    implementation 'com.github.johnpersano:supertoasts:2.0'
+
+    implementation 'uk.co.alt236:bluetooth-le-library-android:1.0.0'
+
+    implementation 'com.anthonycr.grant:permissions:1.0'
+
+    implementation files('libs/merge-1.0.2.jar')
+    implementation files('libs/sacklist-1.0.0.jar')
+    implementation('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {
+        transitive = true;
+    }
 }
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'

@@ -21,32 +21,24 @@
         android:text="regla1"
         android:textSize="@dimen/tamanio_regla"
         android:textAlignment="center"
-        android:textColor="@color/colorSecondaryText"
+        android:textColor="@color/colorPrimary"
         android:textStyle="bold"
         android:layout_marginStart="@dimen/margin_start"
         android:layout_marginEnd="@dimen/margin_start"
         />
 
-    <android.support.design.widget.FloatingActionButton
+
+    <ImageView
         android:id="@+id/buttonOk"
-        android:layout_width="@dimen/ancho_boton"
-        android:layout_height="@dimen/ancho_boton"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/margin_top"
-        android:adjustViewBounds="false"
-        android:clickable="true"
-        app:fabSize="auto"
-        app:maxImageSize="80dp"
-        app:srcCompat="@drawable/ic_ok" />
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:layout_marginTop="15dp"
+        app:srcCompat="@drawable/boton_ok" />
 
-
-    <android.support.design.widget.FloatingActionButton
+    <ImageView
         android:id="@+id/buttonCancelar"
-        android:layout_width="@dimen/ancho_boton"
-        android:layout_height="@dimen/ancho_boton"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/margin_top"
-        android:clickable="true"
-        app:maxImageSize="80dp"
-        app:srcCompat="@drawable/ic_cancelar" />
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:layout_marginTop="15dp"
+        app:srcCompat="@drawable/boton_cancel" />
 </LinearLayout>

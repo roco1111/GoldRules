@@ -27,7 +27,7 @@
     <string name="nombre_usuario">Nombre y Apellido</string>
     <string name="confirmar_cliente">Confirmar Contraseña</string>
     <string name="foto">Foto Perfil</string>
-    <string name="menu_registro">Crear Cuenta</string>
+    <string name="menu_registro">Registro Usuario</string>
     <string name="error_invalid_email">Email invalido</string>
     <string name="empresa">Empresa</string>
 
@@ -56,5 +56,40 @@
     <string name="stop_looking_for_beacons">Parando la búsqueda de beacons</string>
     <string name="no_beacons_detected">No se han encontrado beacons</string>
     <string name="beacon_detected">Beacon %1$s detectada!!</string>
+
+    <!-- Formatters -->
+    <string name="formatter_meters">%sm</string>
+    <string name="formatter_db">%sdb</string>
+    <string name="formatter_item_count">Items: %s</string>
+
+    <!--Toast Messages-->
+    <string name="toast_scanning">"Escaneando…"</string>
+    <string name="toast_completed">"Escaneado Completo"</string>
+    <string name="toast_waiting">"Esperando adaptador Bluetooth…"</string>
+    <string name="toast_no_le">"El dispositivo no es compatible con Bluetooth de Bajo Consumo"</string>
+    <string name="toast_interrupted">"Escaneo interrumpido"</string>
+    <string name="toast_warning_permission_not_granted">Permiso de ubicación aproximada no otorgado</string>
+
+    <!-- Preferences -->
+    <string name="menu_settings">Configuraciones</string>
+    <string name="scan_time">Tiempo de escaneo (milisegundos)</string>
+    <string name="scan_time_summary">Set Scan Time Duration</string>
+    <string name="pause_time">Pause Time (milliseconds)</string>
+    <string name="pause_time_summary">Set Time Between Scans</string>
+    <string name="scan_settings">Service Settings</string>
+    <string name="pref_scantime">scanTime</string>
+    <string name="pref_pausetime">pauseTime</string>
+    <string name="title_activity_scan_preferences">Scan Preferences</string>
+
+    <!-- MergeAdapter Labels -->
+    <string name="label_last_timestamp">Last Timestamp:</string>
+    <string name="label_last_rssi">Last RSSI:</string>
+    <string name="label_company_id">Company ID:</string>
+    <string name="label_uuid">UUID:</string>
+    <string name="label_major">Major:</string>
+    <string name="label_minor">Minor:</string>
+    <string name="labe_tx_power">TX Power:</string>
+    <string name="label_device_name">Device Name:</string>
+    <string name="label_device_address">Device Address:</string>
 
 </resources>
