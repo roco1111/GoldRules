@@ -10,8 +10,11 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.multidex.MultiDex;
+
 import android.view.Window;
+
+import androidx.multidex.MultiDex;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -58,14 +61,18 @@ public class SplashScreenActivity extends Activity {
                      //Start the next activity
 
                     Intent mainIntent = new Intent().setClass(
-                           SplashScreenActivity.this, MainActivityBeacon.class);
+                           SplashScreenActivity.this, MainQR.class);
                    startActivity(mainIntent);
+
+                   /* Intent mainIntent = new Intent().setClass(
+                            SplashScreenActivity.this, MainActivityBeacon.class);
+                    startActivity(mainIntent);*/
 
 
                 }else{
 
                    Intent mainIntent = new Intent().setClass(
-                            SplashScreenActivity.this, MainActivityBeacon.class);
+                            SplashScreenActivity.this, activity_comienzo.class);
                     startActivity(mainIntent);
 
               }

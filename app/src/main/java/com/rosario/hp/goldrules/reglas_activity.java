@@ -2,10 +2,12 @@ package com.rosario.hp.goldrules;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
 import com.rosario.hp.goldrules.Fragment.reglasFragment;
 
@@ -21,7 +23,6 @@ public class reglas_activity extends AppCompatActivity {
 
         setToolbar(); // Setear Toolbar como action bar
 
-
         Fragment fragment = null;
         fragment = new reglasFragment();
 
@@ -31,8 +32,8 @@ public class reglas_activity extends AppCompatActivity {
                     .commit();
 
         }
-        getSupportActionBar().setTitle("Reglas de Seguridad");
 
+        getSupportActionBar().setTitle("Reglas de Seguridad");
     }
 
     private void setToolbar() {
@@ -42,10 +43,12 @@ public class reglas_activity extends AppCompatActivity {
         if (ab != null) {
             // Poner ícono del drawer toggle
             ab.setDisplayHomeAsUpEnabled(true);
-            ab.setDisplayShowHomeEnabled(true);
+            ab.setDisplayShowHomeEnabled(false);
         }
 
     }
+
+
 
 
 

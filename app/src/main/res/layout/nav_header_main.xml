@@ -19,9 +19,7 @@
         android:layout_marginTop="26dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_account_circle"
-        android:visibility="invisible"
-        app:border_color="@android:color/white"
-        app:border_width="1dp" />
+        android:visibility="invisible" />
 
 
     <TextView

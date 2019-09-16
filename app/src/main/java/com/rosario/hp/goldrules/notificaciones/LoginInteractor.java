@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.pm.LauncherApps;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.ActionMode;

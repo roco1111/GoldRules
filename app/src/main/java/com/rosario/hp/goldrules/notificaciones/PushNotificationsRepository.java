@@ -1,6 +1,7 @@
 package com.rosario.hp.goldrules.notificaciones;;
 
-import android.support.v4.util.ArrayMap;
+
+import androidx.collection.ArrayMap;
 
 import java.util.ArrayList;
 

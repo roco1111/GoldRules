@@ -36,8 +36,7 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_account_circle"
             android:visibility="visible"
-            app:border_color="@android:color/white"
-            app:border_width="1dp" />
+             />
 
         <EditText
             android:id="@+id/editTextNombre"

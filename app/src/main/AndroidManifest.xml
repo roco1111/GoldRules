@@ -1,6 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+
     package="com.rosario.hp.goldrules">
+
+    <uses-permission android:name="android.permission.CAMERA" />
 
 
     <application
@@ -9,11 +12,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        tools:replace="android:appComponentFactory"
+        android:appComponentFactory="whateverString"
         android:theme="@style/AppTheme" >
-        <service
-            android:name=".services.ScanService"
-            android:enabled="true"
-            android:exported="false" />
     <activity
         android:name=".SplashScreenActivity"
         android:label="@string/app_name"
@@ -23,21 +24,24 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
     </activity>
+        <activity
+            android:name=".MainQR"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
     <activity android:name=".activity_comienzo">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".SplashScreenActivity" />
     </activity>
-    <activity android:name=".MainActivityBeacon">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".SplashScreenActivity" />
-    </activity>
 
-    <activity android:name=".MainActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
+        <activity android:name=".MainActivity">
+        <meta-data            android:name="android.support.PARENT_ACTIVITY"
             android:value=".SplashScreenActivity" />
     </activity>
         <activity android:name=".reglas_activity">

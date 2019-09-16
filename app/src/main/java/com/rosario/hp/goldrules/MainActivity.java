@@ -8,25 +8,22 @@ import android.content.BroadcastReceiver;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.v4.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.ActionBar;
 import android.util.Log;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -44,10 +41,6 @@ import com.rosario.hp.goldrules.include.Constantes;
 import com.rosario.hp.goldrules.include.VolleySingleton;
 import com.rosario.hp.goldrules.notificaciones.PushNotificationsPresenter;
 
-import org.altbeacon.beacon.Region;
-import org.altbeacon.beacon.powersave.BackgroundPowerSaver;
-import org.altbeacon.beacon.startup.BootstrapNotifier;
-import org.altbeacon.beacon.startup.RegionBootstrap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -58,8 +51,7 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity
-        implements BootstrapNotifier {
+public class MainActivity extends AppCompatActivity {
 
     public static final String ACTION_NOTIFY_NEW_PROMO = "NOTIFY_NEW_PROMO";
     private BroadcastReceiver mNotificationsReceiver;
@@ -67,7 +59,6 @@ public class MainActivity extends AppCompatActivity
     private int posicion;
     private String posicion_string;
     private int posicion_nue;
-    private DrawerLayout drawerLayout;
     private TextView username;
     private TextView mail;
     String id_firebase;
@@ -80,9 +71,8 @@ public class MainActivity extends AppCompatActivity
     public static final int NOTIFICATION_ID = 1;
     public static final String ARG_ARTICLES_NUMBER = "fragment_presentacion";
     private static final String TAG = "BeaconReferenceApp";
-    private RegionBootstrap regionBootstrap;
-    private BackgroundPowerSaver backgroundPowerSaver;
-    private boolean haveDetectedBeaconsSinceBoot = false;
+
+
     private activity_comienzo monitoringActivity = null;
     private String cumulativeLog = "";
     @SuppressLint("InlinedApi")
@@ -186,14 +176,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setToolbar() {
-        Toolbar toolbar =  findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        final ActionBar ab = getSupportActionBar();
-        if (ab != null) {
-            // Poner ícono del drawer toggle
-            ab.setHomeAsUpIndicator(R.drawable.ic_drawer);
-            ab.setDisplayHomeAsUpEnabled(true);
-        }
+
 
     }
 
@@ -213,29 +196,29 @@ public class MainActivity extends AppCompatActivity
         }*/
         setToolbar();
 
-        drawerLayout =  findViewById(R.id.drawer_layout);
-        NavigationView navigationView =  findViewById(R.id.nav_view);
+       // drawerLayout =  findViewById(R.id.drawer_layout);
+        //NavigationView navigationView =  findViewById(R.id.nav_view);
 
 
         SharedPreferences settings1 = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         SharedPreferences.Editor editor = settings1.edit();
 
-        ls_username = settings1.getString("nombre","");
-        ls_mail     = settings1.getString("mail","");
-        posicion_string =  settings1.getString("posicion","");
+        //ls_username = settings1.getString("nombre","");
+        //ls_mail     = settings1.getString("mail","");
+        //posicion_string =  settings1.getString("posicion","");
 
-        imagen = navigationView.getHeaderView(0).findViewById(R.id.imageViewMensaje);
+       // imagen = navigationView.getHeaderView(0).findViewById(R.id.imageViewMensaje);
 
-        username =  navigationView.getHeaderView(0).findViewById(R.id.username);
+       // username =  navigationView.getHeaderView(0).findViewById(R.id.username);
 
-        mail =  navigationView.getHeaderView(0).findViewById(R.id.mail) ;
+       // mail =  navigationView.getHeaderView(0).findViewById(R.id.mail) ;
 
-        imagen.setVisibility(navigationView.getHeaderView(0).VISIBLE);
+       // imagen.setVisibility(navigationView.getHeaderView(0).VISIBLE);
 
-        username.setText(ls_username);
+       // username.setText(ls_username);
 
-        mail.setText(ls_mail);
+      //  mail.setText(ls_mail);
 
 
 
@@ -263,7 +246,7 @@ public class MainActivity extends AppCompatActivity
                 .replace(R.id.main_content, fragment)
                 .commit();
 
-
+        /*
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -320,7 +303,7 @@ public class MainActivity extends AppCompatActivity
 
                         return true;
                     }
-                });
+                });*/
 
     }
 
@@ -479,12 +462,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                drawerLayout.openDrawer(GravityCompat.START);
-                actualizar_foto();
-                return true;
-        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -514,71 +492,7 @@ public class MainActivity extends AppCompatActivity
                 .show();
 
     }
-    public void disableMonitoring() {
-        if (regionBootstrap != null) {
-            regionBootstrap.disable();
-            regionBootstrap = null;
-        }
-    }
-    public void enableMonitoring() {
-        Region region = new Region("backgroundRegion",
-                null, null, null);
-        regionBootstrap = new RegionBootstrap(this, region);
-    }
 
 
-    @Override
-    public void didEnterRegion(Region arg0) {
-        // In this example, this class sends a notification to the user whenever a Beacon
-        // matching a Region (defined above) are first seen.
-        Log.d(TAG, "did enter region.");
-        if (!haveDetectedBeaconsSinceBoot) {
-            Log.d(TAG, "auto launching MainActivity");
-
-            // The very first time since boot that we detect an beacon, we launch the
-            // MainActivity
-            Intent intent = new Intent(this, activity_comienzo.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            // Important:  make sure to add android:launchMode="singleInstance" in the manifest
-            // to keep multiple copies of this activity from getting created if the user has
-            // already manually launched the app.
-            this.startActivity(intent);
-            haveDetectedBeaconsSinceBoot = true;
-        } else {
-            if (monitoringActivity != null) {
-                // If the Monitoring Activity is visible, we log info about the beacons we have
-                // seen on its display
-                logToDisplay("I see a beacon again" );
-            } else {
-                // If we have already seen beacons before, but the monitoring activity is not in
-                // the foreground, we send a notification to the user on subsequent detections.
-                Log.d(TAG, "Sending notification.");
-                sendNotification();
-            }
-        }
-
-
-    }
-
-    @Override
-    public void didExitRegion(Region region) {
-        logToDisplay("I no longer see a beacon.");
-    }
-
-    @Override
-    public void didDetermineStateForRegion(int state, Region region) {
-        logToDisplay("Current region state is: " + (state == 1 ? "INSIDE" : "OUTSIDE ("+state+")"));
-    }
-
-    private void logToDisplay(String line) {
-        cumulativeLog += (line + "\n");
-        if (this.monitoringActivity != null) {
-           // this.monitoringActivity.updateLog(cumulativeLog);
-        }
-    }
-
-    public String getLog() {
-        return cumulativeLog;
-    }
 
 }

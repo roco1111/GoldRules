@@ -21,9 +21,7 @@
         android:layout_height="@dimen/icono"
         android:layout_marginTop="6dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/no_elementos"
-        app:border_color="@android:color/white"
-        app:border_width="1dp" />
+        android:src="@drawable/no_elementos" />
 
     <RelativeLayout
         android:layout_width="wrap_content"

@@ -8,16 +8,14 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import android.support.v7.app.AlertDialog;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
+
 import android.content.Context;
 
 import android.util.Log;
@@ -30,6 +28,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -59,7 +59,7 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 
 import com.android.volley.Request;
-
+import androidx.annotation.NonNull;
 import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonObjectRequest;
@@ -114,8 +114,6 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
     private Dialog alerta;
     Toast toast1;
     private LoginInteractor.Callback mCallback;
-    private TextInputLayout mEmailError;
-    private TextInputLayout mPasswordError;
     private Dialog mIngreso;
     private Dialog mRegistro;
     DatePickerDialog datePickerDialog;
@@ -167,7 +165,7 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
     }
 
     public void setEmailError(String error) {
-        mEmailError.setError(error);
+
     }
 
 
@@ -176,7 +174,7 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
     }
 
     public void setPasswordError(String error) {
-        mPasswordError.setError(error);
+
     }
 
 

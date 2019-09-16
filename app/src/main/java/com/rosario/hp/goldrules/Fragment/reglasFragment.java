@@ -1,18 +1,19 @@
 package com.rosario.hp.goldrules.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
+import android.preference.PreferenceManager;;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -20,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonObjectRequest;
 import com.rosario.hp.goldrules.Entidades.procedimiento;
+import com.rosario.hp.goldrules.MainQR;
 import com.rosario.hp.goldrules.R;
 import com.rosario.hp.goldrules.include.Constantes;
 import com.rosario.hp.goldrules.include.VolleySingleton;
@@ -38,8 +40,8 @@ public class reglasFragment extends Fragment {
     private ImageView imagen_regla;
 
     private TextView regla;
-    private ImageButton ok;
-    private ImageButton cancel;
+    private ImageView ok;
+    private ImageView cancel;
     static String TAG = "Reglas";
     private ArrayList<procedimiento> procedimientos;
     private String ls_cod_empleado;
@@ -72,7 +74,7 @@ public class reglasFragment extends Fragment {
         ls_cod_empleado     = settings.getString("cod_empleado","");
 
 
-        ls_cod_maquina = "1";
+        ls_cod_maquina = settings.getString("maquina","");
 
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -828,6 +830,10 @@ public class reglasFragment extends Fragment {
 
                     break;
             }
+
+            Intent mainIntent = new Intent().setClass(
+                    getActivity(), MainQR.class);
+            startActivity(mainIntent);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -916,6 +922,9 @@ public class reglasFragment extends Fragment {
 
                     break;
             }
+            Intent mainIntent = new Intent().setClass(
+                    getActivity(), MainQR.class);
+            startActivity(mainIntent);
         } catch (JSONException e) {
             e.printStackTrace();
         }
