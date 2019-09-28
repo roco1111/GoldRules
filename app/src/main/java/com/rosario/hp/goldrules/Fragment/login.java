@@ -39,7 +39,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.rosario.hp.goldrules.MainActivity;
+import com.rosario.hp.goldrules.MainQR;
 import com.rosario.hp.goldrules.R;
 
 import com.rosario.hp.goldrules.include.Constantes;
@@ -400,7 +400,7 @@ public class login extends Fragment implements LoginInteractor.Callback{
 
 
 
-                    Intent intent2 = new Intent(context, MainActivity.class);
+                    Intent intent2 = new Intent(context, MainQR.class);
                     SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
                     SharedPreferences.Editor editor = settings.edit();
 

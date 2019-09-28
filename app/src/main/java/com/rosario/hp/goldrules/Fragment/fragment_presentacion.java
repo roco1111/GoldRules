@@ -37,7 +37,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.rosario.hp.goldrules.Entidades.empleados;
 import com.rosario.hp.goldrules.Entidades.empresa;
-import com.rosario.hp.goldrules.MainActivity;
+import com.rosario.hp.goldrules.MainQR;
 import com.rosario.hp.goldrules.SpinAdapter.spinEmpresa;
 import com.rosario.hp.goldrules.include.Constantes;
 import com.rosario.hp.goldrules.include.DialogUtils;
@@ -51,7 +51,6 @@ import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.EmailAuthProvider;
-import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
@@ -71,7 +70,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
@@ -85,9 +83,6 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static com.firebase.ui.auth.ui.AcquireEmailHelper.RC_SIGN_IN;
-
 
 public class fragment_presentacion extends Fragment implements LoginInteractor.Callback{
     private Button ingreso;
@@ -343,7 +338,7 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
                     ls_empresa = codigoEmpleado.getIdempresa();
 
 
-                    Intent intent2 = new Intent(act,MainActivity.class);
+                    Intent intent2 = new Intent(act,MainQR.class);
                     SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(act);
                     SharedPreferences.Editor editor = settings.edit();
 
@@ -1025,7 +1020,7 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
                     ls_nombre = datosEmpleado.getNombre();
 
 
-                    Intent intent2 = new Intent(act,MainActivity.class);
+                    Intent intent2 = new Intent(act, MainQR.class);
                     SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(act);
                     SharedPreferences.Editor editor = settings.edit();
 

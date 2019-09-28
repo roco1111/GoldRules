@@ -3,10 +3,13 @@ package com.rosario.hp.goldrules;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 
+import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import com.rosario.hp.goldrules.Fragment.fragment_presentacion;
@@ -82,7 +85,7 @@ public class activity_comienzo extends AppCompatActivity {
 
         //drawerLayout =  findViewById(R.id.drawer_layout);
         //NavigationView navigationView =  findViewById(R.id.nav_view);
-
+        setToolbar();
         Fragment fragment = null;
         fragment = new fragment_presentacion();
 
@@ -104,8 +107,29 @@ public class activity_comienzo extends AppCompatActivity {
 
         editor.commit();
 
+        getSupportActionBar().setTitle("Gold Rules");
 
+    }
 
+    private void setToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        final ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            // Poner ícono del drawer toggle
+            ab.setDisplayHomeAsUpEnabled(true);
+            ab.setDisplayShowHomeEnabled(false);
+        }
+
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        if (keyCode == event.KEYCODE_BACK) {
+            this.finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 
