@@ -38,6 +38,8 @@
     Le enviaremos un mail con instrucciones para definir una nueva contraseña</string>
     <string name="dialog_aceptar">Aceptar</string>
     <string name="terminado">Proceso Terminado</string>
+    <string name="dialog_ok">NO</string>
+    <string name="dialog_cancel">SI</string>
 
     <!-- Beacon -->
 

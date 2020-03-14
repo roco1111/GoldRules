@@ -127,6 +127,7 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
     private String ls_empresa;
     private Spinner sp_empresa;
     private ArrayList<empresa> empresas;
+    private Button configuracion;
 
 
     public fragment_presentacion() {}
@@ -239,13 +240,11 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
 
-        //FACE////
-
-        final Context context = this.getContext();
 
         View v = inflater.inflate(R.layout.activity_presentacion, container, false);
         this.ingreso =  v.findViewById(R.id.buttonIngreso) ;
         this.registro =  v.findViewById(R.id.buttonRegistro);
+
         empresas = new ArrayList<>();
 
       ///FIREBASE////
@@ -285,8 +284,32 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
 
     public void cargarDatos(final Context context) {
 
+        HashMap<String, String> map = new HashMap<>();// Mapeo previo
+        map.put("mail", ls_mail);
+        map.put("puesto", "1");
+
+        JSONObject jobject = new JSONObject(map);
+
+
+        // Depurando objeto Json...
+        Log.d(TAG, jobject.toString());
+
+        StringBuilder encodedParams = new StringBuilder();
+        try {
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                encodedParams.append(URLEncoder.encode(entry.getKey(), "utf-8"));
+                encodedParams.append('=');
+                encodedParams.append(URLEncoder.encode(entry.getValue(), "utf-8"));
+                encodedParams.append('&');
+            }
+        } catch (UnsupportedEncodingException uee) {
+            throw new RuntimeException("Encoding not supported: " + "utf-8", uee);
+        }
+
+        encodedParams.setLength(Math.max(encodedParams.length() - 1, 0));
+
         // Añadir parámetro a la URL del web service
-        String newURL = Constantes.GET_BY_CLAVE + "?mail=" + ls_mail;
+        String newURL = Constantes.GET_BY_CLAVE + "?" + encodedParams;
         Log.d(TAG,newURL);
 
         // Realizar petición GET_BY_ID
@@ -350,7 +373,7 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
                     editor.apply();
                     actualizar_token(id_firebase);
                     act.startActivity(intent2);
-                    //getActivity().finish();
+                    getActivity().finish();
                     editor.commit();
 
                     break;
@@ -566,7 +589,7 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
 
         id_firebase =  mAuth.getCurrentUser().getIdToken(true).toString();
 
-        String empresa = ((empresa) sp_empresa.getSelectedItem()).getId().toString();
+        String empresa = ((empresa) sp_empresa.getSelectedItem()).getId();
 
 
         HashMap<String, String> map = new HashMap<>();// Mapeo previo
@@ -575,6 +598,7 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
         map.put("id_firebase", id_firebase);
         map.put("clave", ls_contrasena);
         map.put("idempresa", empresa);
+        map.put("puesto", "1");
         JSONObject jobject = new JSONObject(map);
 
 
@@ -1119,7 +1143,7 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
 
                     }
 
-                    new loadEmpresasItemsTask(getContext(),empresas.get(0).getId()).execute();
+                    new loadEmpresasItemsTask(getContext(),"0").execute();
 
                     break;
 

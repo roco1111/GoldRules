@@ -1,7 +1,6 @@
 package com.rosario.hp.goldrules.Fragment;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,8 +26,10 @@ import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.firebase.auth.FirebaseAuth;
+import com.rosario.hp.goldrules.MainQR;
 import com.rosario.hp.goldrules.R;
 import com.rosario.hp.goldrules.activity_comienzo;
+import com.rosario.hp.goldrules.insertUsuario;
 import com.rosario.hp.goldrules.reglas_activity;
 
 import java.io.IOException;
@@ -42,6 +43,7 @@ public class fragment_qr extends Fragment {
     private String tokenanterior = "";
     private FirebaseAuth mAuth;
     private Button cerrar;
+    private Button configuracion;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,7 @@ public class fragment_qr extends Fragment {
         View v = inflater.inflate(R.layout.activity_qr, container, false);
         cameraView = v.findViewById(R.id.camera_view);
         cerrar = v.findViewById(R.id.buttonSalir);
+        configuracion = v.findViewById(R.id.buttonConfiguracion);
         initQR();
 
         this.cerrar.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +70,19 @@ public class fragment_qr extends Fragment {
                 cerrar_sesion();
             }
         });
+
+        this.configuracion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(getActivity(), insertUsuario.class);
+
+                getActivity().startActivity(intent2);
+                getActivity().finish();
+
+            }
+        });
+
+
         return v;
 
     }
@@ -149,7 +165,7 @@ public class fragment_qr extends Fragment {
                         SharedPreferences settings3 = PreferenceManager.getDefaultSharedPreferences(getContext());
                         SharedPreferences.Editor editor = settings3.edit();
 
-                        editor.putString("maquina",token);
+                        editor.putString("seccion",token);
                         editor.apply();
 
                         editor.commit();

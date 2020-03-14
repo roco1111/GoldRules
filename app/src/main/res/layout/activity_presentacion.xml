@@ -22,7 +22,8 @@
         android:id="@+id/buttonIngreso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/boton"
         android:text="@string/menu_ingresar"
@@ -33,6 +34,8 @@
         android:id="@+id/buttonRegistro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginTop="11dp"
         android:background="@drawable/boton"
         android:text="@string/menu_registro"

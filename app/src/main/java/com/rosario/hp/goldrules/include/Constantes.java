@@ -25,9 +25,11 @@ public class Constantes {
 
     /*empleado*/
     public static final String INSERT_EMPLEADO = "https://" + IP + PUERTO_HOST + "/agregar_empleado.php";
+    public static final String UPDATE_EMPLEADO = "https://" + IP + PUERTO_HOST + "/agregar_empleado.php";
+    public static final String GET_BY_ID_EMPLEADO = "https://" + IP + PUERTO_HOST + "/obtener_un_empleado.php";
 
     /*maquina*/
-    public static final String GET_MAQUINA_BY_ID = "https://" + IP + PUERTO_HOST + "/obtener_una_maquina.php";
+    public static final String GET_SECCION_BY_ID = "https://" + IP + PUERTO_HOST + "/obtener_una_seccion.php";
 
     /*regla*/
     public static final String GET_MIN_REGLA= "https://" + IP + PUERTO_HOST + "/obtener_regla_min.php";

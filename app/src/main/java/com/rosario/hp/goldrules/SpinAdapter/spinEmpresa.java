@@ -45,7 +45,7 @@ public class spinEmpresa extends ArrayAdapter<empresa> {
     public View getView(int position, View convertView, ViewGroup parent) {
         // I created a dynamic TextView here, but you can reference your own  custom layout for each spinner item
         TextView label = new TextView(context);
-        label.setTextColor(Color.WHITE);
+        label.setTextColor(Color.BLACK);
         label.setTextSize(17);
         // Then you can get the current item using the values array (Users array) and the current position
         // You can NOW reference each method you has created in your bean object (User class)

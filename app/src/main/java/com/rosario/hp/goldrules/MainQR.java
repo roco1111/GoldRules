@@ -52,8 +52,7 @@ public class MainQR extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
-        if (keyCode == event.KEYCODE_BACK) {
-            this.finish();
+        if (keyCode == event.KEYCODE_BACK) {this.finish();
         }
         return super.onKeyDown(keyCode, event);
     }

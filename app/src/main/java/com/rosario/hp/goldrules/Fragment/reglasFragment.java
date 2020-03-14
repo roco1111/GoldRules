@@ -26,6 +26,7 @@ import com.rosario.hp.goldrules.R;
 import com.rosario.hp.goldrules.include.Constantes;
 import com.rosario.hp.goldrules.include.VolleySingleton;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -74,7 +75,7 @@ public class reglasFragment extends Fragment {
         ls_cod_empleado     = settings.getString("cod_empleado","");
 
 
-        ls_cod_maquina = settings.getString("maquina","");
+        ls_cod_maquina = settings.getString("seccion","");
 
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,9 +101,9 @@ public class reglasFragment extends Fragment {
 
     private void sistema_maquina(final Context context) {
 
-        String newURL = Constantes.GET_MAQUINA_BY_ID  + "?maquina=" + ls_cod_maquina;
+        String newURL = Constantes.GET_SECCION_BY_ID  + "?seccion=" + ls_cod_maquina;
 
-        Log.d("sistema_maquina",newURL);
+        Log.d("sistema_seccion",newURL);
 
         VolleySingleton.getInstance(context).addToRequestQueue(
                 new JsonObjectRequest(
@@ -136,10 +137,13 @@ public class reglasFragment extends Fragment {
             switch (estado) {
                 case "1":
                     // Mostrar mensaje
-                    JSONObject mensaje1 = response.getJSONObject("maquina");
-                    // Parsear con Gson
 
-                    ls_sistema = mensaje1.getString("idsistema");
+
+                    JSONArray mensaje1 = response.getJSONArray("seccion");
+                    // Parsear con Gson
+                    JSONObject mJsonObject = mensaje1.getJSONObject(0);
+
+                    ls_sistema = mJsonObject.getString("idsistema");
 
                     cantidad_en_curso(context);
 
@@ -167,7 +171,7 @@ public class reglasFragment extends Fragment {
         HashMap<String, String> map = new HashMap<>();// Mapeo previo
 
         map.put("empleado", ls_cod_empleado);
-        map.put("maquina", ls_cod_maquina);
+        map.put("seccion", ls_cod_maquina);
 
         // Crear nuevo objeto Json basado en el mapa
         JSONObject jobject = new JSONObject(map);
@@ -336,7 +340,7 @@ public class reglasFragment extends Fragment {
         HashMap<String, String> map = new HashMap<>();// Mapeo previo
 
         map.put("idempleado", ls_cod_empleado);
-        map.put("idmaquina", ls_cod_maquina);
+        map.put("idseccion", ls_cod_maquina);
 
         // Crear nuevo objeto Json basado en el mapa
         JSONObject jobject = new JSONObject(map);
@@ -444,7 +448,7 @@ public class reglasFragment extends Fragment {
         HashMap<String, String> map = new HashMap<>();// Mapeo previo
 
         map.put("empleado", ls_cod_empleado);
-        map.put("maquina", ls_cod_maquina);
+        map.put("seccion", ls_cod_maquina);
 
         // Crear nuevo objeto Json basado en el mapa
         JSONObject jobject = new JSONObject(map);

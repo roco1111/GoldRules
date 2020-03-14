@@ -64,9 +64,7 @@ public class SplashScreenActivity extends Activity {
                            SplashScreenActivity.this,activity_comienzo .class);
                    startActivity(mainIntent);
 
-                   /* Intent mainIntent = new Intent().setClass(
-                            SplashScreenActivity.this, MainActivityBeacon.class);
-                    startActivity(mainIntent);*/
+
 
 
                 }else{
