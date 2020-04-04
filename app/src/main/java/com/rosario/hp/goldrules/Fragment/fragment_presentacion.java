@@ -345,20 +345,21 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
 
         try {
             // Obtener atributo "mensaje"
-            String mensaje = response.getString("estado");
+            String estado = response.getString("estado");
 
-            switch (mensaje) {
+            switch (estado) {
                 case "1":
-                    // Obtener objeto "usuario"
-                    JSONObject object = response.getJSONObject("empleados");
 
-                    //Parsear objeto
-                    empleados codigoEmpleado = gson.fromJson(object.toString(), empleados.class);
+                    JSONArray mensaje = response.getJSONArray("empleados");
 
-                    // Seteando valores en los views
-                    ls_cod_empleado = codigoEmpleado.getId();
-                    ls_nombre = codigoEmpleado.getNombre();
-                    ls_empresa = codigoEmpleado.getIdempresa();
+                    for(int i = 0; i < mensaje.length(); i++) {
+                        JSONObject object = mensaje.getJSONObject(i);
+
+                        ls_cod_empleado = object.getString("id");
+                        ls_nombre = object.getString("nombre");
+                        ls_empresa = object.getString("idempresa");
+
+                    }
 
 
                     Intent intent2 = new Intent(act,MainQR.class);

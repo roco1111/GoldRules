@@ -3,7 +3,6 @@ package com.rosario.hp.goldrules.Fragment;
 import android.Manifest;
 import android.app.Activity;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,7 +24,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -41,6 +39,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonObjectRequest;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -196,7 +196,7 @@ public class datosUsuarios extends Fragment {
         // Inflando layout del fragmento
 
         View v;
-        v = inflater.inflate(R.layout.activity_datos_usuario, container, false);
+        v = inflater.inflate(R.layout.activity_configuracion_usuario, container, false);
         empresas = new ArrayList<>();
 
         this.tvNombre = v.findViewById(R.id.editTextNombre);
@@ -258,10 +258,18 @@ public class datosUsuarios extends Fragment {
             storageRef = storage.getReference();
 
         String mChild = "empleados/" + ls_cod_empleado  + ".jpg";
+        Log.d(TAG,mChild);
         final StorageReference filepath = storageRef.child(mChild);
 
-        GlideApp.with(context)
+        clearGlideCache();
+
+        Glide.with(getActivity().getApplicationContext())
                 .load(filepath)
+                .error(R.drawable.ic_account_circle)
+                .fallback(R.drawable.ic_account_circle)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .skipMemoryCache(true)
+                .centerCrop ()
                 .into(imagen);
 
     }
@@ -307,7 +315,7 @@ public class datosUsuarios extends Fragment {
                         if (storageRef == null)
                             storageRef = storage.getReference();
 
-                        String mChild = "usuarios/" + ls_cod_empleado + ".jpg";
+                        String mChild = "empleados/" + ls_cod_empleado + ".jpg";
                         final StorageReference filepath = storageRef.child(mChild);
 
                         filepath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -485,16 +493,6 @@ public class datosUsuarios extends Fragment {
         final String nombre = tvNombre.getText().toString();
         final String mail = tvMail.getText().toString();
         final String clave = md5(tvClave.getText().toString());
-        String fecha_nac = tvFecha.getText().toString();
-
-        SimpleDateFormat inDateFmt = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat outDateFmt = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date date = inDateFmt.parse(fecha_nac);
-            fecha_nac= outDateFmt.format(date);
-        } catch (ParseException ex) {
-            System.out.println(ex.toString());
-        }
 
         String empresa = ((empresa) sp_empresa.getSelectedItem()).getId();
 
@@ -790,7 +788,7 @@ public class datosUsuarios extends Fragment {
     public void cargarAdaptador() {
         // Petición GET
 
-        String newURL = Constantes.GET_BY_ID_EMPLEADO + "?id=" + ls_cod_empleado;
+        String newURL = Constantes.GET_BY_ID_EMPLEADO + "?empleado=" + ls_cod_empleado;
         Log.d(TAG, newURL);
         VolleySingleton.
                 getInstance(getActivity()).
@@ -1013,6 +1011,20 @@ public class datosUsuarios extends Fragment {
         }
         protected void onPostExecute(String result) {
         }
+    }
+
+    void clearGlideCache()
+    {
+        new Thread()
+        {
+            @Override
+            public void run()
+            {
+                Glide.get(getActivity().getApplicationContext()).clearDiskCache();
+            }
+        }.start();
+
+        Glide.get(getActivity().getApplicationContext()).clearMemory();
     }
 }
 
