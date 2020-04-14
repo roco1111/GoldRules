@@ -1,11 +1,14 @@
 package com.rosario.hp.goldrules.Fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
 import android.app.AlertDialog;
@@ -29,6 +32,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.facebook.AccessToken;
@@ -361,21 +365,7 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
 
                     }
 
-
-                    Intent intent2 = new Intent(act,MainQR.class);
-                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(act);
-                    SharedPreferences.Editor editor = settings.edit();
-
-                    editor.putString("cod_empleado", ls_cod_empleado);
-                    editor.putString("mail", ls_mail);
-                    editor.putString("nombre", ls_nombre);
-                    editor.putString("empresa", ls_empresa);
-
-                    editor.apply();
                     actualizar_token(id_firebase);
-                    act.startActivity(intent2);
-                    getActivity().finish();
-                    editor.commit();
 
                     break;
 
@@ -421,14 +411,9 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
         tvClave = v.findViewById(R.id.editTextClave);
         tvConfirmacion = v.findViewById(R.id.editTextConfirmar);
         tvMail = v.findViewById(R.id.editTextMail);
-        editar_foto = v.findViewById(R.id.buttonFoto);
-        imagen =  v.findViewById(R.id.imageViewfoto);
+
         sp_empresa = v.findViewById(R.id.spinnerEmpresa);
 
-
-
-        editar_foto.setVisibility(View.INVISIBLE);
-        imagen.setVisibility(View.INVISIBLE);
         Button signup = v.findViewById(R.id.buttonRegistro);
 
         String rec = getActivity().getResources().getString(R.string.menu_guardar);
@@ -975,6 +960,23 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
             String mensaje = response.getString("mensaje");
 
             switch (estado) {
+
+                case"1":
+                    Intent intent2 = new Intent(act,MainQR.class);
+                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(act);
+                    SharedPreferences.Editor editor = settings.edit();
+
+                    editor.putString("cod_empleado", ls_cod_empleado);
+                    editor.putString("mail", ls_mail);
+                    editor.putString("nombre", ls_nombre);
+                    editor.putString("empresa", ls_empresa);
+
+                    editor.apply();
+
+                    act.startActivity(intent2);
+                    getActivity().finish();
+                    editor.commit();
+                    break;
 
                 case "2":
                     // Mostrar mensaje

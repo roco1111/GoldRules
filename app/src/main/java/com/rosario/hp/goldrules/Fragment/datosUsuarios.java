@@ -70,10 +70,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -90,7 +87,6 @@ public class datosUsuarios extends Fragment {
     private TextView tvMail = null;
     private TextView tvClave = null;
     private TextView tvConfirmar = null;
-    private TextView tvFecha = null;
     private Button btn_guardar = null;
     private static FirebaseAuth.AuthStateListener mAuthListener;
     public static final String ARG_ARTICLES_NUMBER = "datos_usuario";
@@ -98,7 +94,6 @@ public class datosUsuarios extends Fragment {
     private ArrayList<empleados> empleados;
     String ls_cod_empleado;
     private Button editar_foto;
-    private ImageButton button_fecha;
     private CircleImageView imagen;
     GetImageToURL GetImageToURL;
     Uri imageUri;

@@ -1,11 +1,15 @@
 package com.rosario.hp.goldrules;
 
+import android.Manifest;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.preference.PreferenceManager;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 
@@ -19,6 +23,7 @@ public class activity_comienzo extends AppCompatActivity {
     private int posicion;
     private String posicion_string;
     private int posicion_nue;
+    private final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
 
     @Override
     public void onResume() {
@@ -108,6 +113,20 @@ public class activity_comienzo extends AppCompatActivity {
         editor.commit();
 
         getSupportActionBar().setTitle("Gold Rules");
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                // verificamos la version de ANdroid que sea al menos la M para mostrar
+                // el dialog de la solicitud de la camara
+                if (shouldShowRequestPermissionRationale(
+                        Manifest.permission.CAMERA)) ;
+                requestPermissions(new String[]{Manifest.permission.CAMERA},
+                        MY_PERMISSIONS_REQUEST_CAMERA);
+
+            }
+        }
 
     }
 

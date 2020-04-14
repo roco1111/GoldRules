@@ -6,6 +6,7 @@
     <color name="colorAccent">#00b0ff</color>
     <color name="colorSecondary">#03DAC6</color>
     <color name="background">#F8F061</color>
+    <color name="back_regla">#FBF7A1</color>
     <color name="colorSecondaryText">#FFCA18</color>
     <color name="colorPrimaryText">#ffffff</color>
     <color name="colorDarkText">#000000</color>

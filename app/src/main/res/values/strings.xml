@@ -7,15 +7,21 @@
     <string name="cerrar">Cerrar Sesión</string>
     <string name="compartir">Compartir</string>
     <string name="home">Principal</string>
-    <string name="configuracion">Configuración</string>
+    <string name="configuracion">Preferencias</string>
     <string name="notificaciones">Notificaciones</string>
     <string name="nav_header_subtitle">info@espaciojahiel.com</string>
     <string name="action_settings">Settings</string>
     <string name="menu_ingreso">Ingreso Usuario</string>
     <string name="menu_guardar">Guardar</string>
+    <string name="menu_pasar_regla">Siguiente Regla</string>
+    <string name="menu_anular_bloqueo">Anular Bloqueo</string>
     <string name="title_activity_notifications">Notificaciones</string>
     <string name="vacio">No hay Elementos</string>
-    <string name="menu_acerca">Acerca de</string>
+    <string name="menu_acerca">Acerca de Gold Rules</string>
+    <string name="menu_perfil">Perfil</string>
+    <string name="menu_politicas">Políticas de Privacidad</string>
+    <string name="menu_terminos">Términos y Condiciones</string>
+    <string name="observaciones">Observaciones</string>
 
     <!-- datos empleados -->
 

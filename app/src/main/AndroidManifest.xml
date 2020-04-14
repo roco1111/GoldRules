@@ -57,7 +57,15 @@
             android:value=".SplashScreenActivity" />
     </activity>
 
-    <activity android:name=".insertUsuario">
+    <activity android:name=".insertUsuario"
+        android:parentActivityName=".activity_preferencias">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".activity_preferencias" />
+    </activity>
+
+    <activity android:name=".activity_preferencias"
+        android:parentActivityName=".MainQR">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".MainQR" />

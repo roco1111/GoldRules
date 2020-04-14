@@ -1,51 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/background"
     android:padding="5dp">
 
-    <SurfaceView
-        android:id="@+id/camera_view"
+    <androidx.cardview.widget.CardView
         android:layout_width="339dp"
         android:layout_height="330dp"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="6dp" />
+        android:layout_margin="15dp"
+        card_view:cardBackgroundColor="@color/colorPrimaryText"
+        app:cardElevation = "15dp"
+        android:id="@+id/card_titulo"
 
+        card_view:cardUseCompatPadding="false"
+        app:cardCornerRadius="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <SurfaceView
+                android:id="@+id/camera_view"
+                android:layout_width="329dp"
+                android:layout_height="310dp"
+
+                android:scaleType="centerCrop"
+
+             />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
     <Button
         android:id="@+id/buttonConfiguracion"
         tools:ignore="RtlHardcoded"
         android:layout_width="match_parent"
-        android:layout_above="@id/buttonAcerca"
+        android:layout_below="@id/card_titulo"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/boton"
         android:text="@string/configuracion"
         android:textColor="@color/colorSecondaryText" />
-    <Button
-        android:id="@+id/buttonAcerca"
-        tools:ignore="RtlHardcoded"
-        android:layout_width="match_parent"
 
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_above="@id/buttonSalir"
-        android:background="@drawable/boton"
-        android:text="@string/menu_acerca"
-        android:textColor="@color/colorSecondaryText" />
-
-    <Button
-        android:id="@+id/buttonSalir"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/boton"
-        android:text="@string/cerrar"
-        android:textColor="@color/colorSecondaryText"
-        tools:ignore="RtlHardcoded" />
 </RelativeLayout>

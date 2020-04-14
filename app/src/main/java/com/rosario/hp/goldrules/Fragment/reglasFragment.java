@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +22,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonObjectRequest;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.rosario.hp.goldrules.Entidades.procedimiento;
 import com.rosario.hp.goldrules.MainQR;
 import com.rosario.hp.goldrules.R;
@@ -41,8 +47,8 @@ public class reglasFragment extends Fragment {
     private ImageView imagen_regla;
 
     private TextView regla;
-    private ImageView ok;
-    private ImageView cancel;
+    private Button ok;
+    private Button cancel;
     static String TAG = "Reglas";
     private ArrayList<procedimiento> procedimientos;
     private String ls_cod_empleado;
@@ -51,6 +57,10 @@ public class reglasFragment extends Fragment {
     private String ls_regla;
     private String ls_desc_regla;
     private String procedimientoid;
+    private TextView titulo;
+    private EditText observaciones;
+    StorageReference storageRef;
+    private FirebaseStorage storage;
     private JsonObjectRequest myRequest;
     private ArrayList<procedimiento> procmax =new ArrayList<>();
 
@@ -66,6 +76,10 @@ public class reglasFragment extends Fragment {
         imagen_regla = v.findViewById(R.id.imagen_regla);
 
         regla = v.findViewById(R.id.text_regla);
+
+        titulo = v.findViewById(R.id.titulo_regla);
+
+        observaciones = v.findViewById(R.id.observaciones);
 
         ok = v.findViewById(R.id.buttonOk);
 
@@ -92,6 +106,8 @@ public class reglasFragment extends Fragment {
                 cancelar_procedimiento(context);
             }
         });
+
+
 
         sistema_maquina(context);
 
@@ -310,10 +326,16 @@ public class reglasFragment extends Fragment {
                         terminar_procedimiento(context);
 
                     }else{
+
                         ls_regla = mensaje1.getString("nro_regla");
                         ls_desc_regla = mensaje1.getString("desc_regla");
 
+                        titulo.setText("Regla Nro: " + ls_regla);
+
+                        observaciones.setText("");
+
                         regla.setText(ls_desc_regla);
+                        actualizar_imagen_regla();
                     }
 
                     break;
@@ -643,10 +665,15 @@ public class reglasFragment extends Fragment {
 
        private void actualizar_regla(final Context context) {
 
+        String ls_observaciones;
+
+        ls_observaciones = observaciones.getText().toString();
+
         HashMap<String, String> map = new HashMap<>();// Mapeo previo
 
         map.put("idprocedimiento", procedimientoid);
         map.put("idregla", ls_regla);
+        map.put("observaciones", ls_observaciones);
 
         // Crear nuevo objeto Json basado en el mapa
         JSONObject jobject = new JSONObject(map);
@@ -846,6 +873,7 @@ public class reglasFragment extends Fragment {
 
     private void terminar_procedimiento(final Context context) {
 
+
         String newURL = Constantes.TERMINAR_PROCEDIMIENTO + "?id=" + procedimientoid;
 
         Log.d("actualizar_proc_regla", newURL);
@@ -933,6 +961,45 @@ public class reglasFragment extends Fragment {
             e.printStackTrace();
         }
 
+    }
+
+    private void actualizar_imagen_regla(){
+        storage = FirebaseStorage.getInstance();
+
+        if (storageRef == null)
+            storageRef = storage.getReference();
+
+        String mChild = "reglas/" + ls_regla  + ".jpg";
+        Log.d(TAG,mChild);
+        final StorageReference filepath = storageRef.child(mChild);
+
+        clearGlideCache();
+
+        Glide.with(getActivity().getApplicationContext())
+                .load(filepath)
+                .placeholder(R.drawable.ic_photo_default)
+                .error(R.drawable.ic_photo_default)
+                .fallback(R.drawable.ic_photo_default)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .skipMemoryCache(true)
+
+                .centerCrop ()
+                .into(imagen_regla);
+
+    }
+
+    void clearGlideCache()
+    {
+        new Thread()
+        {
+            @Override
+            public void run()
+            {
+                Glide.get(getActivity().getApplicationContext()).clearDiskCache();
+            }
+        }.start();
+
+        Glide.get(getActivity().getApplicationContext()).clearMemory();
     }
 
 

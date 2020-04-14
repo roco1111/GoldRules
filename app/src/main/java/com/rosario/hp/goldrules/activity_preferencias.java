@@ -3,28 +3,30 @@ package com.rosario.hp.goldrules;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
-import com.rosario.hp.goldrules.Fragment.datosUsuarios;
+import com.rosario.hp.goldrules.Fragment.fragment_preferencias;
+import com.rosario.hp.goldrules.Fragment.fragment_qr;
 
-public class insertUsuario extends AppCompatActivity {
 
+public class activity_preferencias extends AppCompatActivity {
+
+    private final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Obtener instancia FirebaseAuth
+
         setContentView(R.layout.lista_main_inicial);
+
         setToolbar(); // Setear Toolbar como action bar
 
+        Fragment fragment = null;
+        fragment = new fragment_preferencias();
 
-        Fragment fragment;
-        fragment = new datosUsuarios();
-
-
-        // Creación del fragmento de inserción
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.main_content, fragment)
@@ -32,7 +34,7 @@ public class insertUsuario extends AppCompatActivity {
 
         }
 
-        getSupportActionBar().setTitle("Perfil");
+        getSupportActionBar().setTitle("Preferencias");
     }
 
     private void setToolbar() {
@@ -42,9 +44,14 @@ public class insertUsuario extends AppCompatActivity {
         if (ab != null) {
             // Poner ícono del drawer toggle
             ab.setDisplayHomeAsUpEnabled(true);
-            ab.setDisplayShowHomeEnabled(true);
+            ab.setDisplayShowHomeEnabled(false);
         }
 
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
@@ -57,15 +64,8 @@ public class insertUsuario extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
-        if (keyCode == event.KEYCODE_BACK) {
-            this.finish();
+        if (keyCode == event.KEYCODE_BACK) {this.finish();
         }
         return super.onKeyDown(keyCode, event);
     }
-
-
 }
-
-
-
-

@@ -30,7 +30,8 @@
             android:id="@+id/imageViewfoto"
             android:layout_width="@dimen/perfil_image_size"
             android:layout_height="@dimen/perfil_image_size"
-            android:layout_centerHorizontal="true"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/colorPrimary"
             android:layout_alignParentTop="true"
             android:layout_marginTop="24dp"
             android:scaleType="centerCrop"
@@ -149,13 +150,13 @@
 
         <Button
             android:id="@+id/buttonFoto"
-            android:layout_width="95dp"
-            android:layout_height="36dp"
+            android:layout_width="120dp"
+            android:layout_height="46dp"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="79dp"
             android:layout_toEndOf="@id/imageViewfoto"
-            android:background="@color/colorDarkText"
+            android:background="@color/colorPrimary"
             android:text="@string/foto"
             android:textColor="@color/colorSecondaryText"
             tools:ignore="RtlHardcoded" />

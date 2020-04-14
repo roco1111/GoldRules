@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
@@ -25,11 +24,8 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
-import com.google.firebase.auth.FirebaseAuth;
-import com.rosario.hp.goldrules.MainQR;
 import com.rosario.hp.goldrules.R;
-import com.rosario.hp.goldrules.activity_comienzo;
-import com.rosario.hp.goldrules.insertUsuario;
+import com.rosario.hp.goldrules.activity_preferencias;
 import com.rosario.hp.goldrules.reglas_activity;
 
 import java.io.IOException;
@@ -41,8 +37,6 @@ public class fragment_qr extends Fragment {
     private final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
     private String token = "";
     private String tokenanterior = "";
-    private FirebaseAuth mAuth;
-    private Button cerrar;
     private Button configuracion;
 
     @Override
@@ -60,24 +54,16 @@ public class fragment_qr extends Fragment {
 
         View v = inflater.inflate(R.layout.activity_qr, container, false);
         cameraView = v.findViewById(R.id.camera_view);
-        cerrar = v.findViewById(R.id.buttonSalir);
         configuracion = v.findViewById(R.id.buttonConfiguracion);
         initQR();
-
-        this.cerrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cerrar_sesion();
-            }
-        });
 
         this.configuracion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(getActivity(), insertUsuario.class);
+                Intent intent2 = new Intent(getActivity(), activity_preferencias.class);
 
                 getActivity().startActivity(intent2);
-                getActivity().finish();
+                //getActivity().finish();
 
             }
         });
@@ -113,10 +99,19 @@ public class fragment_qr extends Fragment {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         // verificamos la version de ANdroid que sea al menos la M para mostrar
                         // el dialog de la solicitud de la camara
-                        if (shouldShowRequestPermissionRationale(
-                                Manifest.permission.CAMERA)) ;
-                        requestPermissions(new String[]{Manifest.permission.CAMERA},
-                                MY_PERMISSIONS_REQUEST_CAMERA);
+                        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
+                                != PackageManager.PERMISSION_GRANTED) {
+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                // verificamos la version de ANdroid que sea al menos la M para mostrar
+                                // el dialog de la solicitud de la camara
+                                if (shouldShowRequestPermissionRationale(
+                                        Manifest.permission.CAMERA)) ;
+                                requestPermissions(new String[]{Manifest.permission.CAMERA},
+                                        MY_PERMISSIONS_REQUEST_CAMERA);
+
+                            }
+                        }
                     }
                     return;
                 } else {
@@ -196,29 +191,5 @@ public class fragment_qr extends Fragment {
         });
 
     }
-    private void cerrar_sesion() {
-        new AlertDialog.Builder(getContext())
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Salir")
-                .setMessage("Desea salir de la aplicación?")
-                .setNegativeButton(android.R.string.cancel,null)
-                .setPositiveButton(android.R.string.ok,new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-                        SharedPreferences.Editor editor = settings.edit();
-                        editor.putString("posicion", "0");
-                        editor.commit();
-                        mAuth = FirebaseAuth.getInstance();
-                        mAuth.signOut();
 
-                        getActivity().finish();
-                        Intent intent4 = new Intent(getContext(), activity_comienzo.class);
-                        startActivity(intent4);
-
-                    }
-                })
-                .show();
-
-    }
 }

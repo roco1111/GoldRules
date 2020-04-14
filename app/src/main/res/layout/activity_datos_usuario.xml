@@ -26,24 +26,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageViewfoto"
-            android:layout_width="@dimen/perfil_image_size"
-            android:layout_height="@dimen/perfil_image_size"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="24dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_account_circle"
-            android:visibility="visible"
-             />
+
+
 
         <EditText
             android:id="@+id/editTextNombre"
             android:layout_width="match_parent"
             android:layout_height="@dimen/campos_height"
-            android:layout_below="@+id/imageViewfoto"
-            android:layout_marginTop="14dp"
+
+            android:layout_marginTop="24dp"
             android:ems="10"
             android:hint="@string/nombre_usuario"
             android:inputType="textPersonName"
@@ -144,19 +135,6 @@
             android:layout_marginTop="14dp"
             android:background="@drawable/boton"
             android:text="@string/menu_guardar"
-            android:textColor="@color/colorSecondaryText"
-            tools:ignore="RtlHardcoded" />
-
-        <Button
-            android:id="@+id/buttonFoto"
-            android:layout_width="95dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="79dp"
-            android:layout_toEndOf="@id/imageViewfoto"
-            android:background="@color/colorDarkText"
-            android:text="@string/foto"
             android:textColor="@color/colorSecondaryText"
             tools:ignore="RtlHardcoded" />
 
