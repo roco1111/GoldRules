@@ -25,13 +25,10 @@ public class MainQR extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // Obtener instancia FirebaseAuth
 
-        setContentView(R.layout.lista_main_inicial);
+        setContentView(R.layout.lista_main_qr);
 
 
-
-        setToolbar(); // Setear Toolbar como action bar
-
-        Fragment fragment = null;
+         Fragment fragment = null;
         fragment = new fragment_qr();
 
         if (savedInstanceState == null) {
@@ -39,19 +36,6 @@ public class MainQR extends AppCompatActivity {
                     .replace(R.id.main_content, fragment)
                     .commit();
 
-        }
-
-        getSupportActionBar().setTitle("Principal");
-    }
-
-    private void setToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        final ActionBar ab = getSupportActionBar();
-        if (ab != null) {
-            // Poner ícono del drawer toggle
-            ab.setDisplayHomeAsUpEnabled(true);
-            ab.setDisplayShowHomeEnabled(false);
         }
 
     }

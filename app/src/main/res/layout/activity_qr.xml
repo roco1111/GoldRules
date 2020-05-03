@@ -7,24 +7,71 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/background"
-    android:padding="5dp">
+    android:padding="15dp">
+
+
+
+    <RelativeLayout
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/encabezado"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="@dimen/icono"
+            android:layout_height="@dimen/icono"
+            android:layout_alignParentStart="true"
+            app:srcCompat="@drawable/gold_rules" />
+
+        <TextView
+            android:id="@+id/titulo"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gold Rules"
+            android:textSize="@dimen/tamanio_parrafo"
+            android:textAlignment="textStart"
+            android:textColor="@color/colorSecondaryText"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/imageView2"
+
+            />
+
+        <TextView
+            android:id="@+id/titulo_desc"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seguridad en tus manos"
+            android:textSize="@dimen/tamanio_texto"
+            android:textAlignment="textStart"
+            android:textColor="@color/colorSecondaryText"
+            android:textStyle="bold"
+
+            android:layout_below="@id/titulo"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/imageView2"
+
+            />
+    </RelativeLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="339dp"
-        android:layout_height="330dp"
+        android:layout_height="310dp"
         android:layout_centerHorizontal="true"
-        android:layout_margin="15dp"
+        android:layout_marginTop="35dp"
+        android:layout_below="@id/encabezado"
         card_view:cardBackgroundColor="@color/colorPrimaryText"
         app:cardElevation = "15dp"
         android:id="@+id/card_titulo"
 
         card_view:cardUseCompatPadding="false"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="15dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp">
+
 
             <SurfaceView
                 android:id="@+id/camera_view"
@@ -34,7 +81,7 @@
                 android:scaleType="centerCrop"
 
              />
-        </RelativeLayout>
+
     </androidx.cardview.widget.CardView>
     <Button
         android:id="@+id/buttonConfiguracion"
@@ -42,9 +89,22 @@
         android:layout_width="match_parent"
         android:layout_below="@id/card_titulo"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/boton"
         android:text="@string/configuracion"
         android:textColor="@color/colorSecondaryText" />
+
+    <Button
+        android:id="@+id/buttonHistorial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonConfiguracion"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/boton"
+        android:text="@string/historial"
+        android:textColor="@color/colorSecondaryText"
+        tools:ignore="RtlHardcoded" />
+
+
 
 </RelativeLayout>

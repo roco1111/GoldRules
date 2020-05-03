@@ -63,6 +63,7 @@ public class reglasFragment extends Fragment {
     private FirebaseStorage storage;
     private JsonObjectRequest myRequest;
     private ArrayList<procedimiento> procmax =new ArrayList<>();
+    boolean lb_terminar;
 
     public reglasFragment(){}
 
@@ -95,7 +96,6 @@ public class reglasFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 actualizar_regla(context);
-
             }
         });
 
@@ -324,6 +324,7 @@ public class reglasFragment extends Fragment {
                     // Parsear con Gson
                     if(mensaje1.getString("idregla").equals("0")){
                         terminar_procedimiento(context);
+                        lb_terminar = true;
 
                     }else{
 
@@ -781,9 +782,130 @@ public class reglasFragment extends Fragment {
 
     }
 
+    private void actualizar_regla_cancelar(final Context context) {
+
+        String ls_observaciones;
+
+        ls_observaciones = observaciones.getText().toString();
+
+        HashMap<String, String> map = new HashMap<>();// Mapeo previo
+
+        map.put("idprocedimiento", procedimientoid);
+        map.put("idregla", ls_regla);
+        map.put("observaciones", ls_observaciones);
+
+        // Crear nuevo objeto Json basado en el mapa
+        JSONObject jobject = new JSONObject(map);
+
+
+        // Depurando objeto Json...
+        Log.d(TAG, jobject.toString());
+
+        StringBuilder encodedParams = new StringBuilder();
+        try {
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                encodedParams.append(URLEncoder.encode(entry.getKey(), "utf-8"));
+                encodedParams.append('=');
+                encodedParams.append(URLEncoder.encode(entry.getValue(), "utf-8"));
+                encodedParams.append('&');
+            }
+        } catch (UnsupportedEncodingException uee) {
+            throw new RuntimeException("Encoding not supported: " + "utf-8", uee);
+        }
+
+        encodedParams.setLength(Math.max(encodedParams.length() - 1, 0));
+
+        String newURL = Constantes.UPDATE_REGLA_CANCELAR + "?" + encodedParams;
+
+        Log.d("actualizar_proc_regla", newURL);
+
+        // Actualizar datos en el servidor
+        VolleySingleton.getInstance(context).addToRequestQueue(
+                myRequest = new JsonObjectRequest(
+                        Request.Method.GET,
+                        newURL,
+                        //jobject,
+                        null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // Procesar la respuesta del servidor
+
+                                procesarRespuestaActualizarReglaCancelar(response, context);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d(TAG, " act regla: " + error.getMessage());
+
+                            }
+                        }
+
+                ) {
+
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        Map<String, String> headers = new HashMap<>();
+                        headers.put("Content-Type", "application/json; charset=utf-8");
+                        return headers;
+                    }
+
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/json; charset=utf-8";
+                    }
+
+                }
+
+        );
+        myRequest.setRetryPolicy(new DefaultRetryPolicy(
+                50000,
+                5,//DefaultRetryPolicy.DEFAULT_MAX_RETRIES
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+    }
+
+    private void procesarRespuestaActualizarReglaCancelar(JSONObject response, Context context) {
+
+        try {
+            // Obtener estado
+            String estado = response.getString("estado");
+            // Obtener mensaje
+            String mensaje = response.getString("mensaje");
+
+            switch (estado) {
+                case "1":
+
+                    Toast.makeText(
+                            context,
+                            mensaje,
+                            Toast.LENGTH_LONG).show();
+
+                    break;
+
+                case "2":
+                    // Mostrar mensaje
+                    Toast.makeText(
+                            context,
+                            mensaje,
+                            Toast.LENGTH_LONG).show();
+
+                    break;
+            }
+
+        Intent mainIntent = new Intent().setClass(
+                getActivity(), MainQR.class);
+        startActivity(mainIntent);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private void cancelar_procedimiento(final Context context) {
 
-        String newURL = Constantes.CANCELAR_PROCEDIMIENTO + "?id=" + procedimientoid;
+       String newURL = Constantes.CANCELAR_PROCEDIMIENTO + "?id=" + procedimientoid;
 
         Log.d("actualizar_proc_regla", newURL);
 
@@ -845,10 +967,7 @@ public class reglasFragment extends Fragment {
             switch (estado) {
                 case "1":
 
-                    Toast.makeText(
-                            context,
-                            mensaje,
-                            Toast.LENGTH_LONG).show();
+                    actualizar_regla_cancelar(context) ;
 
                     break;
 
@@ -954,9 +1073,11 @@ public class reglasFragment extends Fragment {
 
                     break;
             }
+
             Intent mainIntent = new Intent().setClass(
                     getActivity(), MainQR.class);
             startActivity(mainIntent);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

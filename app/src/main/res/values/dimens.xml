@@ -2,6 +2,7 @@
 <resources>
     <dimen name="tamanio_regla">22sp</dimen>
     <dimen name="tamanio_parrafo">18sp</dimen>
+    <dimen name="tamanio_texto">15sp</dimen>
     <dimen name="margin_top">15dp</dimen>
     <dimen name="margin_start">5dp</dimen>
     <dimen name="ancho_boton">84dp</dimen>

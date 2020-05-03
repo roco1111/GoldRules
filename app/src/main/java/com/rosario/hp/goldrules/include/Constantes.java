@@ -12,6 +12,7 @@ public class Constantes {
     public static final String INSERT_PROCEDIMIENTO_REGLA = "https://" + IP + PUERTO_HOST + "/agregar_procedimientoregla.php";
     public static final String GET_MAX_PROCEDIMIENTO = "https://" + IP + PUERTO_HOST + "/obtener_max_procedimiento.php";
     public static final String UPDATE_REGLA = "https://" + IP + PUERTO_HOST + "/actualizar_regla.php";
+    public static final String UPDATE_REGLA_CANCELAR = "https://" + IP + PUERTO_HOST + "/actualizar_regla_cancelar.php";
     public static final String TERMINAR_PROCEDIMIENTO = "https://" + IP + PUERTO_HOST + "/terminar_procedimiento.php";
     public static final String CANCELAR_PROCEDIMIENTO = "https://" + IP + PUERTO_HOST + "/cancelar_procedimiento.php";
 
