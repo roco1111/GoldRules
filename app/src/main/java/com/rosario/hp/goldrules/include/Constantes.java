@@ -32,6 +32,11 @@ public class Constantes {
     /*maquina*/
     public static final String GET_SECCION_BY_ID = "https://" + IP + PUERTO_HOST + "/obtener_una_seccion.php";
 
+    /*procedimientos*/
+    public static final String GET_PROCEDIMIENTOS_EMPLEADOS = "https://" + IP + PUERTO_HOST + "/obtener_procedimientos_empleado.php";
+    public static final String GET_BY_PROCEDIMIENTO_ID = "https://" + IP + PUERTO_HOST + "/obtener_un_procedimiento.php";
+
     /*regla*/
     public static final String GET_MIN_REGLA= "https://" + IP + PUERTO_HOST + "/obtener_regla_min.php";
+    public static final String GET_REGLAS= "https://" + IP + PUERTO_HOST + "/obtener_reglas.php";
 }

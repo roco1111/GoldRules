@@ -9,7 +9,13 @@
         android:maxSdkVersion="21" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
-
+    <permission android:name="android.permission.FLASHLIGHT"
+        android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
+        android:protectionLevel="normal" />
+    <uses-feature android:name="android.hardware.camera.flash" android:required="false" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.setParameters" android:required="false" />
     <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
 
     <application
@@ -55,6 +61,36 @@
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".SplashScreenActivity" />
+    </activity>
+    <activity
+        android:name=".activity_reglas">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".activity_bloqueo" />
+    </activity>
+    <activity
+        android:name=".activity_regla">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".activity_regla" />
+    </activity>
+    <activity
+        android:name=".activity_bloqueos">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainQR" />
+    </activity>
+    <activity
+        android:name=".activity_bloqueo">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".activity_bloqueos" />
+    </activity>
+    <activity
+        android:name=".activity_seccion">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".activity_bloqueo" />
     </activity>
 
     <activity android:name=".insertUsuario"

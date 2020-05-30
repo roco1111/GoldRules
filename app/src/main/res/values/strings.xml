@@ -23,6 +23,12 @@
     <string name="menu_terminos">Términos y Condiciones</string>
     <string name="observaciones">Observaciones</string>
     <string name="historial">Historial Bloqueos</string>
+    <string name="hora">Hora Inicio</string>
+    <string name="fecha">Fecha del Bloqueo</string>
+    <string name="tipo_seccion">Tipo de Sección</string>
+    <string name="seccion">Sección</string>
+    <string name="sistema">Sistema de Reglas</string>
+    <string name="ubicacion">Ubicación</string>
 
     <!-- datos empleados -->
 

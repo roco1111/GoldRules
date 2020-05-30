@@ -7,6 +7,12 @@ public class procedimiento {
     String idMaquina;
     String fecha;
     String cantidad;
+    String maquina;
+    String completo;
+    String comienzo;
+    String empleado;
+    String tipo_seccion;
+    String hora;
 
     public String getCantidad() {
         return cantidad;
@@ -18,6 +24,38 @@ public class procedimiento {
 
     public String getId() {
         return id;
+    }
+
+    public String getMaquina() {
+        return maquina;
+    }
+
+    public void setMaquina(String maquina) {
+        this.maquina = maquina;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
+
+    public String getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(String empleado) {
+        this.empleado = empleado;
+    }
+
+    public String getTipo_seccion() {
+        return tipo_seccion;
+    }
+
+    public void setTipo_seccion(String tipo_seccion) {
+        this.tipo_seccion = tipo_seccion;
     }
 
     public void setId(String id) {
@@ -63,9 +101,6 @@ public class procedimiento {
     public void setComienzo(String comienzo) {
         this.comienzo = comienzo;
     }
-
-    String completo;
-    String comienzo;
 
     public procedimiento(){
         super();

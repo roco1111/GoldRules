@@ -9,23 +9,22 @@
         android:id="@+id/reciclador"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorSecondaryText"
+        android:background="@color/back_regla"
         android:padding="3dp"
         android:scrollbars="vertical" />
 
 
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/ImEmpty"
-            android:foregroundGravity="center"
-            android:paddingStart="30dp"
-            android:src="@drawable/no_elementos"
-            android:layout_marginLeft="85dp"
-            android:layout_marginRight="85dp"
-            android:layout_marginTop="85dp"
-            android:layout_alignParentTop="true" />
+    <ImageView
+        android:id="@+id/ImEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginRight="10dp"
+        android:foregroundGravity="center"
+        android:paddingStart="30dp"
+        android:src="@drawable/no_elementos" />
 
         <TextView
             android:layout_width="wrap_content"

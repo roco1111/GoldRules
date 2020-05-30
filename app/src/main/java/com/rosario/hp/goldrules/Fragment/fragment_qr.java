@@ -1,10 +1,12 @@
 package com.rosario.hp.goldrules.Fragment;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.hardware.Camera;
+import android.hardware.camera2.CameraManager;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,6 +18,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -25,12 +28,14 @@ import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.rosario.hp.goldrules.R;
+import com.rosario.hp.goldrules.activity_bloqueos;
 import com.rosario.hp.goldrules.activity_preferencias;
 import com.rosario.hp.goldrules.reglas_activity;
 
 import java.io.IOException;
+import java.util.List;
 
-public class fragment_qr extends Fragment {
+public class fragment_qr extends Fragment implements SurfaceHolder.Callback {
 
     private CameraSource cameraSource;
     private SurfaceView cameraView;
@@ -38,6 +43,22 @@ public class fragment_qr extends Fragment {
     private String token = "";
     private String tokenanterior = "";
     private Button configuracion;
+    private Button historial;
+    private ImageButton btnlinterna;
+    Camera.Parameters params;
+
+    Camera camera;
+    private CameraManager mCameraManager;
+    boolean isFlash = false;
+    boolean isOn = false;
+    private String mCameraId;
+
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        switchFlashLight(isOn);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +68,13 @@ public class fragment_qr extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+
+    @Override
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
@@ -54,8 +82,27 @@ public class fragment_qr extends Fragment {
 
         View v = inflater.inflate(R.layout.activity_qr, container, false);
         cameraView = v.findViewById(R.id.camera_view);
+
+        SurfaceHolder mHolder = cameraView.getHolder();
+        mHolder.addCallback(this);
+
+        if (camera == null) {
+
+            camera = Camera.open();
+
+            params = camera.getParameters();
+
+            try {
+                camera.setPreviewDisplay(mHolder);
+            } catch (IOException e) {
+                camera.release();
+                camera = null;
+            }
+
+        }
         configuracion = v.findViewById(R.id.buttonConfiguracion);
-        initQR();
+        historial = v.findViewById(R.id.buttonHistorial);
+
 
         this.configuracion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,10 +115,83 @@ public class fragment_qr extends Fragment {
             }
         });
 
+        this.historial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(getActivity(), activity_bloqueos.class);
+
+                getActivity().startActivity(intent2);
+                //getActivity().finish();
+
+            }
+        });
+
+
+
+
+        initQR();
+
+        btnlinterna = v.findViewById(R.id.imageViewFlash);
+
+
+        btnlinterna.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public  void onClick(View v) {
+
+                switchFlashLight(isOn);
+
+            }
+
+
+        });
+
 
         return v;
 
     }
+
+
+
+
+
+    public void switchFlashLight(boolean status) {
+
+        if(status) {
+            if (camera == null || params == null) {
+                return;
+            }
+            camera.lock();
+            params = camera.getParameters();
+
+            camera.cancelAutoFocus();
+            params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+            camera.startPreview();
+            camera.setParameters(params);
+            camera.stopPreview();
+            isOn = false;
+            btnlinterna.setImageResource(R.drawable.flash_of);
+        }else{
+            if (camera == null || params == null) {
+                return;
+            }
+            camera.lock();
+
+            params = camera.getParameters();
+            params.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+            camera.cancelAutoFocus();
+            //params.setAutoWhiteBalanceLock(false);
+            camera.setParameters(params);
+            camera.startPreview();
+            isOn = true;
+            btnlinterna.setImageResource(R.drawable.flash_on);
+            camera.unlock();
+        }
+
+
+    }
+
+
     public void initQR() {
 
         // creo el detector qr
@@ -88,6 +208,7 @@ public class fragment_qr extends Fragment {
                 .build();
 
         // listener de ciclo de vida de la camara
+
         cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
@@ -189,6 +310,48 @@ public class fragment_qr extends Fragment {
                 }
             }
         });
+
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        if (camera != null) {
+            camera.stopPreview();
+            camera.setPreviewCallback(null);
+            camera.release();
+            camera = null;
+        }
+    }
+
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        if (camera == null) {
+            camera = Camera.open();
+            params = camera.getParameters();
+
+        }
+
+        try {
+            camera.setPreviewDisplay(holder);
+        } catch (IOException e) {
+            camera.release();
+            camera = null;
+        }
+    }
+    @Override
+    public void surfaceChanged(SurfaceHolder holder,int format,int width,int height)   {
+
+        List<Camera.Size> allSizes = params.getSupportedPictureSizes();
+        Camera.Size size = allSizes.get(0); // get top size
+        for (int i = 0; i < allSizes.size(); i++) {
+            if (allSizes.get(i).width > size.width)
+                size = allSizes.get(i);
+        }
+//set max Picture Size
+        params.setPreviewSize(size.width, size.height);
+
+
+
 
     }
 

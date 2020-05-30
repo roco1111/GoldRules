@@ -5,6 +5,9 @@ public class reglas {
     String desc_regla;
     String nro_regla;
     String idsistema;
+    String hora;
+    String completo;
+    String observacion;
 
     public reglas(String id, String nom_empresa) {
         this.id = id;
@@ -26,6 +29,30 @@ public class reglas {
 
     public void setDesc_regla(String desc_regla) {
         this.desc_regla = desc_regla;
+    }
+
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
+
+    public String getCompleto() {
+        return completo;
+    }
+
+    public void setCompleto(String completo) {
+        this.completo = completo;
     }
 
     public String getNro_regla() {

@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainQR"
+    android:background="@color/back_regla"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -17,6 +18,7 @@
     <RelativeLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
+        android:background="@color/back_regla"
         android:layout_height="match_parent" />
 
 </LinearLayout>

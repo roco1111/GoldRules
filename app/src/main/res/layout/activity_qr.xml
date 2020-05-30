@@ -12,7 +12,7 @@
 
 
     <RelativeLayout
-        android:layout_width="280dp"
+        android:layout_width="3500dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:id="@+id/encabezado"
@@ -56,6 +56,15 @@
             android:layout_toEndOf="@id/imageView2"
 
             />
+
+        <ImageButton
+            android:id="@+id/imageViewFlash"
+            android:layout_width="@dimen/icono"
+            android:layout_height="@dimen/icono"
+            android:layout_alignParentEnd="true"
+            android:background="@color/background"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/flash_of" />
     </RelativeLayout>
 
     <androidx.cardview.widget.CardView
@@ -72,22 +81,22 @@
         app:cardCornerRadius="15dp">
 
 
+        <SurfaceView
+            android:id="@+id/camera_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
-            <SurfaceView
-                android:id="@+id/camera_view"
-                android:layout_width="329dp"
-                android:layout_height="310dp"
+            android:scaleType="centerCrop"
 
-                android:scaleType="centerCrop"
-
-             />
+            />
 
     </androidx.cardview.widget.CardView>
     <Button
         android:id="@+id/buttonConfiguracion"
         tools:ignore="RtlHardcoded"
         android:layout_width="match_parent"
-        android:layout_below="@id/card_titulo"
+        android:layout_above="@id/buttonHistorial"
+        android:layout_marginBottom="@dimen/margin_top"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:background="@drawable/boton"
@@ -98,8 +107,8 @@
         android:id="@+id/buttonHistorial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonConfiguracion"
-        android:layout_marginTop="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin_top"
         android:background="@drawable/boton"
         android:text="@string/historial"
         android:textColor="@color/colorSecondaryText"
