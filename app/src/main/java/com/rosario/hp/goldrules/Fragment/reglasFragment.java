@@ -31,6 +31,7 @@ import com.rosario.hp.goldrules.MainQR;
 import com.rosario.hp.goldrules.R;
 import com.rosario.hp.goldrules.include.Constantes;
 import com.rosario.hp.goldrules.include.VolleySingleton;
+import com.rosario.hp.goldrules.reglas_activity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,6 +56,7 @@ public class reglasFragment extends Fragment {
     private String ls_cod_maquina;
     private String ls_sistema;
     private String ls_regla;
+    private String ls_id_regla;
     private String ls_desc_regla;
     private String procedimientoid;
     private TextView titulo;
@@ -92,6 +94,8 @@ public class reglasFragment extends Fragment {
 
         ls_cod_maquina = settings.getString("seccion","");
 
+        Log.d("maquina",ls_cod_maquina);
+
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,6 +114,7 @@ public class reglasFragment extends Fragment {
 
 
         sistema_maquina(context);
+
 
         return v;
 
@@ -160,6 +165,10 @@ public class reglasFragment extends Fragment {
                     JSONObject mJsonObject = mensaje1.getJSONObject(0);
 
                     ls_sistema = mJsonObject.getString("idsistema");
+
+                    String ls_titulo = mJsonObject.getString("tipo_regla");
+
+                    ((reglas_activity) getActivity()).setActionBarTitle(ls_titulo);
 
                     cantidad_en_curso(context);
 
@@ -332,6 +341,15 @@ public class reglasFragment extends Fragment {
                         ls_desc_regla = mensaje1.getString("desc_regla");
 
                         titulo.setText("Regla Nro: " + ls_regla);
+
+                        ls_id_regla = mensaje1.getString("idregla");
+
+                        String ls_regla_max = mensaje1.getString("maxregla");
+
+                        if(Double.valueOf(ls_regla_max).equals(Double.valueOf(ls_id_regla)))
+                        {
+                            ok.setText("Terminar Procedimiento");
+                        }
 
                         observaciones.setText("");
 
@@ -673,7 +691,7 @@ public class reglasFragment extends Fragment {
         HashMap<String, String> map = new HashMap<>();// Mapeo previo
 
         map.put("idprocedimiento", procedimientoid);
-        map.put("idregla", ls_regla);
+        map.put("idregla", ls_id_regla);
         map.put("observaciones", ls_observaciones);
 
         // Crear nuevo objeto Json basado en el mapa
@@ -791,7 +809,7 @@ public class reglasFragment extends Fragment {
         HashMap<String, String> map = new HashMap<>();// Mapeo previo
 
         map.put("idprocedimiento", procedimientoid);
-        map.put("idregla", ls_regla);
+        map.put("idregla", ls_id_regla);
         map.put("observaciones", ls_observaciones);
 
         // Crear nuevo objeto Json basado en el mapa
@@ -1090,7 +1108,7 @@ public class reglasFragment extends Fragment {
         if (storageRef == null)
             storageRef = storage.getReference();
 
-        String mChild = "reglas/" + ls_regla  + ".jpg";
+        String mChild = "reglas/" + ls_id_regla  + ".jpg";
         Log.d(TAG,mChild);
         final StorageReference filepath = storageRef.child(mChild);
 

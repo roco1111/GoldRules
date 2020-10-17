@@ -64,7 +64,7 @@ public class reglaAdapter extends RecyclerView.Adapter<reglaAdapter.HolderRegla>
             holder.observacion.setVisibility(View.VISIBLE);
         }
 
-        actualizar_foto(reglas.get(position).getNro_regla(),holder.imagen);
+        actualizar_foto(reglas.get(position).getId(),holder.imagen);
 
     }
 
@@ -159,6 +159,7 @@ public class reglaAdapter extends RecyclerView.Adapter<reglaAdapter.HolderRegla>
         String ls_desc_regla = reglas.get(position).getDesc_regla();
         String ls_completo = reglas.get(position).getCompleto();
         String ls_hora = reglas.get(position).getHora();
+        String ls_id = reglas.get(position).getId();
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString("regla", ls_regla);
@@ -166,6 +167,7 @@ public class reglaAdapter extends RecyclerView.Adapter<reglaAdapter.HolderRegla>
         editor.putString("desc_regla", ls_desc_regla);
         editor.putString("completo", ls_completo);
         editor.putString("hora", ls_hora);
+        editor.putString("idregla", ls_id);
 
         editor.apply();
         editor.commit();

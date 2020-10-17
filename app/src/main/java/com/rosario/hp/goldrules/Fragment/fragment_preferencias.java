@@ -28,6 +28,7 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.firebase.auth.FirebaseAuth;
 import com.rosario.hp.goldrules.R;
+import com.rosario.hp.goldrules.WebActivity;
 import com.rosario.hp.goldrules.activity_comienzo;
 import com.rosario.hp.goldrules.insertUsuario;
 import com.rosario.hp.goldrules.reglas_activity;
@@ -65,6 +66,23 @@ public class fragment_preferencias extends Fragment {
                 Intent intent2 = new Intent(getActivity(), insertUsuario.class);
 
                 getActivity().startActivity(intent2);
+            }
+        });
+
+        politicas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+                SharedPreferences.Editor editor = settings.edit();
+
+                editor.putString("url", "https://goldrules.infinitydesigner.com.ar/politicas/privacidad.php");
+                editor.apply();
+
+                Intent intent = new Intent(getContext(), WebActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getActivity().startActivity(intent);
+                editor.commit();
             }
         });
 

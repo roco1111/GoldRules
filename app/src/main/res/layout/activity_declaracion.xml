@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:paddingTop="10dp">
+
+    <RelativeLayout
+        android:layout_width="3500dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/encabezado"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="@dimen/icono"
+            android:layout_height="@dimen/icono"
+            android:layout_alignParentStart="true"
+            app:srcCompat="@drawable/gold_rules" />
+
+        <TextView
+            android:id="@+id/titulo"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gold Rules"
+            android:textSize="@dimen/tamanio_parrafo"
+            android:textAlignment="textStart"
+            android:textColor="@color/colorSecondaryText"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/imageView2"
+
+            />
+
+        <TextView
+            android:id="@+id/titulo_desc"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seguridad en tus manos"
+            android:textSize="@dimen/tamanio_texto"
+            android:textAlignment="textStart"
+            android:textColor="@color/colorSecondaryText"
+            android:textStyle="bold"
+
+            android:layout_below="@id/titulo"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/imageView2"
+
+            />
+
+
+    </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="339dp"
+        android:layout_height="310dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_top"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_horizontal_margin"
+        card_view:cardBackgroundColor="@color/colorPrimaryText"
+        app:cardElevation = "15dp"
+        android:id="@+id/card_titulo"
+        android:layout_above="@id/buttonAceptar"
+        card_view:cardUseCompatPadding="false"
+        app:cardCornerRadius="15dp">
+
+    <TextView
+        android:id="@+id/textDeclaracion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/tamanio_parrafo"
+        android:text="TextView"
+
+        android:textAlignment="textStart"
+       />
+    </androidx.cardview.widget.CardView>
+    <Button
+        android:id="@+id/buttonAceptar"
+        android:layout_width="@dimen/campos_width_medio"
+        android:layout_height="@dimen/campos_height"
+        android:layout_marginTop="@dimen/icono_chico"
+        android:layout_gravity="center"
+        android:background="@drawable/boton"
+        android:text="@string/dialog_aceptar"
+        android:textColor="@color/colorSecondaryText"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/alto_preferencias"
+        tools:ignore="RtlHardcoded" />
+</RelativeLayout>

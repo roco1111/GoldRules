@@ -47,6 +47,7 @@ public class fragment_regla extends Fragment {
     private Activity act;
     StorageReference storageRef;
     private FirebaseStorage storage;
+    private String ls_id_regla;
 
 
 
@@ -66,6 +67,7 @@ public class fragment_regla extends Fragment {
         ls_desc_regla = settings1.getString("desc_regla","");
         ls_completo = settings1.getString("completo","");
         ls_hora = settings1.getString("hora","");
+        ls_id_regla = settings1.getString("idregla","");
 
         imagen = v.findViewById(R.id.imageViewRegla);
 
@@ -94,7 +96,7 @@ public class fragment_regla extends Fragment {
             item.setImageDrawable(getContext().getResources().getDrawable(R.drawable.item_incompleto));
         }
 
-        actualizar_foto(regla,imagen);
+        actualizar_foto(ls_id_regla,imagen);
 
 
         return v;

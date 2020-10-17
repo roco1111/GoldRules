@@ -49,6 +49,7 @@
         </provider>
     <activity
         android:name=".SplashScreenActivity"
+        android:noHistory="true"
         android:label="@string/app_name"
         android:theme="@style/AppTheme.SplashTheme">
         <intent-filter>
@@ -67,6 +68,18 @@
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".activity_bloqueo" />
+    </activity>
+    <activity
+        android:name=".declaracion">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainQR" />
+    </activity>
+    <activity
+        android:name=".WebActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".activity_preferencias" />
     </activity>
     <activity
         android:name=".activity_regla">

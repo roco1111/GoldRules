@@ -10,11 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -25,7 +24,6 @@ import com.rosario.hp.goldrules.include.VolleySingleton;
 import com.rosario.hp.goldrules.Entidades.reglas;
 import com.rosario.hp.goldrules.R;
 import com.rosario.hp.goldrules.adapter.reglaAdapter;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,7 +34,6 @@ public class fragment_reglas extends Fragment {
     private reglaAdapter ReglaAdapter;
 
     private static final String TAG = fragment_reglas.class.getSimpleName();
-
     private ArrayList<reglas> datos;
     private RecyclerView lista;
     private TextView texto;
@@ -45,6 +42,7 @@ public class fragment_reglas extends Fragment {
     public fragment_reglas(){}
     private String procedimiento;
     private Activity act;
+    SwipeRefreshLayout swipeRefreshLayout;
 
 
     @Override
@@ -53,9 +51,13 @@ public class fragment_reglas extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_main_basico, container, false);
 
+
+
         datos = new ArrayList<>();
 
         act = getActivity();
+
+        swipeRefreshLayout = v.findViewById(R.id.swipeRefreshLayout);
 
         SharedPreferences settings1 = PreferenceManager.getDefaultSharedPreferences(getContext());
         procedimiento     = settings1.getString("procedimiento","");
@@ -71,6 +73,16 @@ public class fragment_reglas extends Fragment {
 
         lManager = new LinearLayoutManager(getActivity());
         lista.setLayoutManager(lManager);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.d("swipe","swipe");
+
+                swipeRefreshLayout.setRefreshing(true);
+                cargarAdaptador();
+            }
+        });
         cargarAdaptador();
 
         return v;
@@ -100,6 +112,7 @@ public class fragment_reglas extends Fragment {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
                                         Log.d(TAG, "Error Volley: " + error.toString());
+                                        swipeRefreshLayout.setRefreshing(false);
                                     }
                                 }
 
@@ -115,6 +128,8 @@ public class fragment_reglas extends Fragment {
                 case "1": // EXITO
 
                     JSONArray mensaje = response.getJSONArray("procedimiento");
+
+                    datos.clear();
 
                     for(int i = 0; i < mensaje.length(); i++)
                     {JSONObject object = mensaje.getJSONObject(i);
@@ -141,6 +156,9 @@ public class fragment_reglas extends Fragment {
 
                         reg.setHora(hora);
 
+                        String id_regla = object.getString("idregla");
+
+                        reg.setId(id_regla);
 
                         datos.add(reg);
 
@@ -156,8 +174,10 @@ public class fragment_reglas extends Fragment {
                     imagen.setVisibility(getView().VISIBLE);
                     texto.setVisibility(getView().VISIBLE);
 
+
                     break;
             }
+            swipeRefreshLayout.setRefreshing(false);
 
         } catch (JSONException e) {
             Log.d(TAG, e.getMessage());

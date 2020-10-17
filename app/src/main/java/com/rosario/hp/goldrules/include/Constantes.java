@@ -4,7 +4,7 @@ public class Constantes {
     private static final String PUERTO_HOST = "";
 
 
-    private static final String IP = "rlsystemdesigner.com.ar/goldrules/app";
+    private static final String IP = "goldrules.infinitydesigner.com.ar/app";
 
     public static final String UPDATE_TOKEN = "https://" + IP + PUERTO_HOST + "/actualizar_token.php";
     public static final String GET_CANT_EN_CURSO = "https://" + IP + PUERTO_HOST + "/obtener_cant_en_curso.php";

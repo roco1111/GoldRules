@@ -36,6 +36,7 @@ public class reglas_activity extends AppCompatActivity {
         getSupportActionBar().setTitle("Reglas de Seguridad");
     }
 
+
     private void setToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -49,8 +50,9 @@ public class reglas_activity extends AppCompatActivity {
     }
 
 
-
-
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
+    }
 
 }
 

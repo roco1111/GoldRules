@@ -30,6 +30,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.rosario.hp.goldrules.R;
 import com.rosario.hp.goldrules.activity_bloqueos;
 import com.rosario.hp.goldrules.activity_preferencias;
+import com.rosario.hp.goldrules.declaracion;
 import com.rosario.hp.goldrules.reglas_activity;
 
 import java.io.IOException;
@@ -57,7 +58,7 @@ public class fragment_qr extends Fragment implements SurfaceHolder.Callback {
     @Override
     public void onPause(){
         super.onPause();
-        switchFlashLight(isOn);
+        //switchFlashLight(isOn);
     }
 
     @Override
@@ -86,9 +87,13 @@ public class fragment_qr extends Fragment implements SurfaceHolder.Callback {
         SurfaceHolder mHolder = cameraView.getHolder();
         mHolder.addCallback(this);
 
+
+
         if (camera == null) {
 
             camera = Camera.open();
+
+            camera.lock();
 
             params = camera.getParameters();
 
@@ -127,8 +132,6 @@ public class fragment_qr extends Fragment implements SurfaceHolder.Callback {
         });
 
 
-
-
         initQR();
 
         btnlinterna = v.findViewById(R.id.imageViewFlash);
@@ -146,14 +149,9 @@ public class fragment_qr extends Fragment implements SurfaceHolder.Callback {
 
         });
 
-
         return v;
 
     }
-
-
-
-
 
     public void switchFlashLight(boolean status) {
 
@@ -286,7 +284,7 @@ public class fragment_qr extends Fragment implements SurfaceHolder.Callback {
 
                         editor.commit();
 
-                        Intent intent = new Intent(getContext(), reglas_activity.class);
+                        Intent intent = new Intent(getContext(), declaracion.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         getContext().startActivity(intent);
 

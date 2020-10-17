@@ -38,6 +38,20 @@ public class MainQR extends AppCompatActivity {
 
         }
 
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                // verificamos la version de ANdroid que sea al menos la M para mostrar
+                // el dialog de la solicitud de la camara
+                if (shouldShowRequestPermissionRationale(
+                        Manifest.permission.CAMERA)) ;
+                requestPermissions(new String[]{Manifest.permission.CAMERA},
+                        MY_PERMISSIONS_REQUEST_CAMERA);
+
+            }
+        }
+
     }
 
     @Override

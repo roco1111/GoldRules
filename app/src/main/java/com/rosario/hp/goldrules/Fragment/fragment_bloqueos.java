@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -42,6 +43,7 @@ public class fragment_bloqueos extends Fragment {
     private ImageView imagen;
     private String ls_empleado;
     private RecyclerView.LayoutManager lManager;
+    SwipeRefreshLayout swipeRefreshLayout;
     public fragment_bloqueos(){}
 
     @Override
@@ -60,6 +62,8 @@ public class fragment_bloqueos extends Fragment {
         texto =  v.findViewById(R.id.TwEmpty);
         imagen = v.findViewById(R.id.ImEmpty);
 
+        swipeRefreshLayout = v.findViewById(R.id.swipeRefreshLayout);
+
         imagen.setVisibility(v.INVISIBLE);
         texto.setVisibility(v.INVISIBLE);
 
@@ -68,6 +72,15 @@ public class fragment_bloqueos extends Fragment {
 
         lManager = new LinearLayoutManager(getActivity());
         lista.setLayoutManager(lManager);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.d("swipe","swipe");
+
+                swipeRefreshLayout.setRefreshing(true);
+                cargarAdaptador();
+            }
+        });
         cargarAdaptador();
         return v;
     }
@@ -96,6 +109,7 @@ public class fragment_bloqueos extends Fragment {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
                                         Log.d(TAG, "Error Volley: " + error.toString());
+                                        swipeRefreshLayout.setRefreshing(false);
                                     }
                                 }
 
@@ -111,6 +125,8 @@ public class fragment_bloqueos extends Fragment {
                 case "1": // EXITO
 
                     JSONArray mensaje = response.getJSONArray("procedimiento");
+
+                    datos.clear();
 
                     for(int i = 0; i < mensaje.length(); i++)
                     {JSONObject object = mensaje.getJSONObject(i);
@@ -163,6 +179,7 @@ public class fragment_bloqueos extends Fragment {
 
                     break;
             }
+            swipeRefreshLayout.setRefreshing(false);
 
         } catch (JSONException e) {
             Log.d(TAG, e.getMessage());
