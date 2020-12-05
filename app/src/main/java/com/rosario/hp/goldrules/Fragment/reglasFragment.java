@@ -3,6 +3,7 @@ package com.rosario.hp.goldrules.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;;
 import android.util.Log;
@@ -59,8 +60,15 @@ public class reglasFragment extends Fragment {
     private String ls_id_regla;
     private String ls_desc_regla;
     private String procedimientoid;
+    private String mail;
+    private String ls_tipo_regla;
+    private String ls_nom_sistema;
+    private String ls_nom_seccion;
+    private String ls_tipo_sistema;
+    private String ls_texto_observacion;
     private TextView titulo;
     private EditText observaciones;
+    private TextView titulo_observaciones;
     StorageReference storageRef;
     private FirebaseStorage storage;
     private JsonObjectRequest myRequest;
@@ -88,9 +96,11 @@ public class reglasFragment extends Fragment {
 
         cancel = v.findViewById(R.id.buttonCancelar);
 
+        titulo_observaciones = v.findViewById(R.id.titulo_observaciones);
+
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         ls_cod_empleado     = settings.getString("cod_empleado","");
-
+        mail = settings.getString("mail","");
 
         ls_cod_maquina = settings.getString("seccion","");
 
@@ -166,9 +176,17 @@ public class reglasFragment extends Fragment {
 
                     ls_sistema = mJsonObject.getString("idsistema");
 
-                    String ls_titulo = mJsonObject.getString("tipo_regla");
+                    ls_tipo_regla = mJsonObject.getString("tipo_regla");
 
-                    ((reglas_activity) getActivity()).setActionBarTitle(ls_titulo);
+                    ls_nom_sistema = mJsonObject.getString("sistema");
+
+                    ls_nom_seccion = mJsonObject.getString("nombre");
+
+                    ls_tipo_sistema = mJsonObject.getString("tipo_sistema");
+
+
+
+                    ((reglas_activity) getActivity()).setActionBarTitle(ls_tipo_regla);
 
                     cantidad_en_curso(context);
 
@@ -340,6 +358,8 @@ public class reglasFragment extends Fragment {
                         ls_regla = mensaje1.getString("nro_regla");
                         ls_desc_regla = mensaje1.getString("desc_regla");
 
+                        ls_texto_observacion = mensaje1.getString("texto_observacion");
+
                         titulo.setText("Regla Nro: " + ls_regla);
 
                         ls_id_regla = mensaje1.getString("idregla");
@@ -350,6 +370,9 @@ public class reglasFragment extends Fragment {
                         {
                             ok.setText("Terminar Procedimiento");
                         }
+
+                        if( ! ls_texto_observacion.equals("null")){
+                        titulo_observaciones.setText(ls_texto_observacion);}
 
                         observaciones.setText("");
 
@@ -855,7 +878,7 @@ public class reglasFragment extends Fragment {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Log.d(TAG, " act regla: " + error.getMessage());
+                                Log.d(TAG, " act regla cancelar: " + error.getMessage());
 
                             }
                         }
@@ -945,7 +968,7 @@ public class reglasFragment extends Fragment {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Log.d(TAG, " act regla: " + error.getMessage());
+                                Log.d(TAG, " act regla cnacelar proc: " + error.getMessage());
 
                             }
                         }
@@ -1033,7 +1056,7 @@ public class reglasFragment extends Fragment {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Log.d(TAG, " act regla: " + error.getMessage());
+                                Log.d(TAG, "terminar Proc: " + error.getMessage());
 
                             }
                         }
@@ -1092,9 +1115,7 @@ public class reglasFragment extends Fragment {
                     break;
             }
 
-            Intent mainIntent = new Intent().setClass(
-                    getActivity(), MainQR.class);
-            startActivity(mainIntent);
+            mail_procedimiento(context);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -1125,6 +1146,124 @@ public class reglasFragment extends Fragment {
                 .centerCrop ()
                 .into(imagen_regla);
 
+    }
+
+    public void mail_procedimiento(final Context context){
+
+        HashMap<String, String> map = new HashMap<>();// Mapeo previo
+
+        map.put("mail", mail);
+        map.put("seccion", ls_nom_seccion);
+        map.put("sistema", ls_nom_sistema);
+        map.put("procedimiento", procedimientoid);
+
+        // Crear nuevo objeto Json basado en el mapa
+        JSONObject jobject = new JSONObject(map);
+
+
+        // Depurando objeto Json...
+        Log.d(TAG, jobject.toString());
+
+        StringBuilder encodedParams = new StringBuilder();
+        try {
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                encodedParams.append(URLEncoder.encode(entry.getKey(), "utf-8"));
+                encodedParams.append('=');
+                encodedParams.append(URLEncoder.encode(entry.getValue(), "utf-8"));
+                encodedParams.append('&');
+            }
+        } catch (UnsupportedEncodingException uee) {
+            throw new RuntimeException("Encoding not supported: " + "utf-8", uee);
+        }
+
+        encodedParams.setLength(Math.max(encodedParams.length() - 1, 0));
+
+        String newURL = Constantes.MAIL_PROCEDIMIENTO + "?" + encodedParams ;
+
+        Log.d("mail",newURL);
+
+        VolleySingleton.getInstance(context).addToRequestQueue(
+                myRequest = new JsonObjectRequest(
+                        Request.Method.POST,
+                        newURL,
+                        //jobject,
+                        null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // Procesar la respuesta del servidor
+
+                                procesarMail(response, context);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d(TAG, " mail proc: " + error.getMessage());
+
+                            }
+                        }
+
+                ) {
+
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        Map<String, String> headers = new HashMap<>();
+                        headers.put("Content-Type", "application/json; charset=utf-8");
+                        return headers;
+                    }
+
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/json; charset=utf-8";
+                    }
+
+                }
+
+        );
+        myRequest.setRetryPolicy(new DefaultRetryPolicy(
+                50000,
+                5,//DefaultRetryPolicy.DEFAULT_MAX_RETRIES
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+    }
+
+    private void procesarMail(JSONObject response, Context context) {
+        try {
+            // Obtener estado
+            String estado = response.getString("estado");
+            // Obtener mensaje
+            String mensaje = response.getString("mensaje");
+
+            switch (estado) {
+                case "1":
+
+
+
+                    Toast.makeText(
+                            context,
+                            mensaje,
+                            Toast.LENGTH_LONG).show();
+
+                    Intent mainIntent = new Intent().setClass(getActivity(), MainQR.class);
+                    startActivity(mainIntent);
+
+                    break;
+
+                case "2":
+                    // Mostrar mensaje
+                    Toast.makeText(
+                            context,
+                            mensaje,
+                            Toast.LENGTH_LONG).show();
+
+                    break;
+            }
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     void clearGlideCache()

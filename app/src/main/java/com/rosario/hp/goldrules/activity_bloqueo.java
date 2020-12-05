@@ -33,7 +33,7 @@ public class activity_bloqueo extends AppCompatActivity {
 
         }
 
-        getSupportActionBar().setTitle("Bloqueos");
+        getSupportActionBar().setTitle("Procedimiento");
     }
 
     private void setToolbar() {

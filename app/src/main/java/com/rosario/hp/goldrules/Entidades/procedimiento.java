@@ -13,6 +13,7 @@ public class procedimiento {
     String empleado;
     String tipo_seccion;
     String hora;
+    String sistema;
 
     public String getCantidad() {
         return cantidad;
@@ -40,6 +41,14 @@ public class procedimiento {
 
     public void setHora(String hora) {
         this.hora = hora;
+    }
+
+    public String getSistema() {
+        return sistema;
+    }
+
+    public void setSistema(String sistema) {
+        this.sistema = sistema;
     }
 
     public String getEmpleado() {

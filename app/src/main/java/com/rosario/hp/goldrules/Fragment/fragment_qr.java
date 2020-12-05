@@ -31,7 +31,6 @@ import com.rosario.hp.goldrules.R;
 import com.rosario.hp.goldrules.activity_bloqueos;
 import com.rosario.hp.goldrules.activity_preferencias;
 import com.rosario.hp.goldrules.declaracion;
-import com.rosario.hp.goldrules.reglas_activity;
 
 import java.io.IOException;
 import java.util.List;

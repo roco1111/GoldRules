@@ -6,6 +6,16 @@ public class empresa {
     String mail;
     String telefono;
 
+    public String getTipo_lectura() {
+        return tipo_lectura;
+    }
+
+    public void setTipo_lectura(String tipo_lectura) {
+        this.tipo_lectura = tipo_lectura;
+    }
+
+    String tipo_lectura;
+
     public empresa(String id, String nom_empresa) {
         this.id = id;
         this.nom_empresa = nom_empresa;

@@ -162,6 +162,9 @@ public class fragment_bloqueos extends Fragment {
 
                         pro.setHora(hora);
 
+                        String sistema = object.getString("sistema");
+
+                        pro.setSistema(sistema);
 
                         datos.add(pro);
 

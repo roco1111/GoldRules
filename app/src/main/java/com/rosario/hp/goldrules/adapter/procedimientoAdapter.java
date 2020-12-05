@@ -39,9 +39,9 @@ public class procedimientoAdapter extends RecyclerView.Adapter<procedimientoAdap
 
     public void onBindViewHolder(HolderProcedimiento holder, int position) {
 
-        holder.titulo.setText("Bloqueo Nro: " + Procedimientos.get(position).getId());
+        holder.titulo.setText("Procedimiento Nro: " + Procedimientos.get(position).getId());
         holder.fecha.setText(Procedimientos.get(position).getFecha());
-        holder.descripcion.setText(Procedimientos.get(position).getMaquina());
+        holder.descripcion.setText(Procedimientos.get(position).getMaquina() + " - " + Procedimientos.get(position).getSistema());
         holder.hora.setText(Procedimientos.get(position).getHora());
         if(Procedimientos.get(position).getCompleto().equals("1")){
             holder.icono.setImageDrawable(context.getResources().getDrawable(R.drawable.completo_item));

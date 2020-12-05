@@ -66,7 +66,7 @@ public class fragment_bloqueo extends Fragment {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         procedimiento     = settings.getString("procedimiento","");
 
-        tv_titulo.setText("Bloqueo Nro:" + procedimiento);
+        tv_titulo.setText("Procedimiento Nro:" + procedimiento);
 
         cargarDatos(getContext());
 

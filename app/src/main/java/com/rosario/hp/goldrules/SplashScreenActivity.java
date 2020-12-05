@@ -69,8 +69,16 @@ public class SplashScreenActivity extends Activity {
 
                 }else{
 
-                   Intent mainIntent = new Intent().setClass(
-                            SplashScreenActivity.this, MainQR.class);
+                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    String ls_tipo_lectura     = settings.getString("tipo_lectura","");
+                    Intent mainIntent;
+
+                    if(ls_tipo_lectura.equals("0")){
+                        mainIntent = new Intent().setClass(
+                                SplashScreenActivity.this, activity_secciones.class);
+                    }else{
+                    mainIntent = new Intent().setClass(
+                            SplashScreenActivity.this, MainQR.class);}
                     startActivity(mainIntent);
 
               }

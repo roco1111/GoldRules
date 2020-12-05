@@ -45,11 +45,11 @@
                         android:id="@+id/textViewTitulo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+
                         android:text="TextView"
                         android:textColor="@color/colorPrimary"
-                        android:layout_centerHorizontal="true"
-                        android:textAlignment="center"
+
+                        android:textAlignment="textStart"
                         android:textSize="@dimen/tamanio_titulo"
                         android:textStyle="bold" />
 
@@ -60,7 +60,7 @@
                         android:layout_alignTop="@id/textViewTitulo"
                         android:layout_alignParentEnd="true"
 
-                        android:layout_marginEnd="@dimen/margin_start"
+                        android:layout_marginEnd="@dimen/item_vertical_margin"
                         android:src="@drawable/completo" />
                 </RelativeLayout>
             </LinearLayout>
@@ -78,13 +78,12 @@
                     android:id="@+id/textViewnomFecha"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_top"
                     android:gravity="center"
-                    android:textColor="@color/colorPrimary"
                     android:text="@string/fecha"
                     android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/tamanio_item"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewFecha"

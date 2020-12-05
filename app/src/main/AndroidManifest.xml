@@ -63,6 +63,12 @@
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".SplashScreenActivity" />
     </activity>
+        <activity
+            android:name=".activity_secciones">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SplashScreenActivity" />
+        </activity>
     <activity
         android:name=".activity_reglas">
         <meta-data

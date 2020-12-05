@@ -43,6 +43,7 @@ import com.rosario.hp.goldrules.Entidades.empleados;
 import com.rosario.hp.goldrules.Entidades.empresa;
 import com.rosario.hp.goldrules.MainQR;
 import com.rosario.hp.goldrules.SpinAdapter.spinEmpresa;
+import com.rosario.hp.goldrules.activity_secciones;
 import com.rosario.hp.goldrules.include.Constantes;
 import com.rosario.hp.goldrules.include.DialogUtils;
 import com.rosario.hp.goldrules.R;
@@ -129,6 +130,7 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
     Context context;
     private CircleImageView imagen;
     private String ls_empresa;
+    private String ls_tipo_lectura;
     private Spinner sp_empresa;
     private ArrayList<empresa> empresas;
     private Button configuracion;
@@ -279,9 +281,6 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
             }
         });
 
-
-
-
         return v;
     }
 
@@ -362,7 +361,7 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
                         ls_cod_empleado = object.getString("id");
                         ls_nombre = object.getString("nombre");
                         ls_empresa = object.getString("idempresa");
-
+                        ls_tipo_lectura = object.getString("tipo_lectura");
                     }
 
                     actualizar_token(id_firebase);
@@ -962,7 +961,12 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
             switch (estado) {
 
                 case"1":
-                    Intent intent2 = new Intent(act,MainQR.class);
+                    Intent intent2;
+                    if(ls_tipo_lectura.equals("0")){
+                        intent2 = new Intent(act, activity_secciones.class);
+                    }else {
+                        intent2 = new Intent(act, MainQR.class);
+                    }
                     SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(act);
                     SharedPreferences.Editor editor = settings.edit();
 
@@ -970,6 +974,7 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
                     editor.putString("mail", ls_mail);
                     editor.putString("nombre", ls_nombre);
                     editor.putString("empresa", ls_empresa);
+                    editor.putString("tipo_lectura", ls_tipo_lectura);
 
                     editor.apply();
 
@@ -992,94 +997,6 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
         }
     }
 
-    public void obtenerCodigo(final Context context) {
-
-        // Añadir parámetro a la URL del web service
-        String newURL = Constantes.GET_BY_CLAVE + "?mail=" + ls_mail;
-
-
-        // Realizar petición GET_BY_ID
-        VolleySingleton.getInstance(context).addToRequestQueue(
-                myRequest = new JsonObjectRequest(
-                        Request.Method.POST,
-                        newURL,
-                        null,
-                        new Response.Listener<JSONObject>() {
-
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                // Procesar respuesta Json
-                                procesarRespuesta_datos(response, context);
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.d(TAG, "Error Volley: " + error.getMessage());
-                            }
-                        }
-                )
-        );
-        myRequest.setRetryPolicy(new DefaultRetryPolicy(
-                50000,
-                5,//DefaultRetryPolicy.DEFAULT_MAX_RETRIES
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-    }
-
-    private void procesarRespuesta_datos(JSONObject response, Context context) {
-
-        try {
-            // Obtener atributo "mensaje"
-            String mensaje = response.getString("estado");
-
-            switch (mensaje) {
-                case "1":
-                    // Obtener objeto "usuario"
-                    JSONObject object = response.getJSONObject("empleados");
-
-                    //Parsear objeto
-                    empleados datosEmpleado = gson.fromJson(object.toString(), empleados.class);
-
-                    // Seteando valores en los views
-                    ls_cod_empleado = datosEmpleado.getId();
-                    ls_mail = datosEmpleado.getMail();
-                    ls_nombre = datosEmpleado.getNombre();
-
-
-                    Intent intent2 = new Intent(act, MainQR.class);
-                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(act);
-                    SharedPreferences.Editor editor = settings.edit();
-
-                    editor.putString("mail", ls_mail);
-                    editor.putString("cod_empleado", ls_cod_empleado);
-                    editor.putString("nombre", ls_nombre);
-
-
-                    editor.apply();
-                    actualizar_token(id_firebase);
-                    act.startActivity(intent2);
-                   // getActivity().finish();
-                    editor.commit();
-                    break;
-
-
-
-                case "3":
-                    String mensaje3 = response.getString("mensaje");
-                    Toast.makeText(
-                            context,
-                            mensaje3,
-                            Toast.LENGTH_LONG).show();
-                    break;
-            }
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public void obtenerEmpresas(final Context context) {
 
@@ -1141,6 +1058,10 @@ public class fragment_presentacion extends Fragment implements LoginInteractor.C
                         String nomempresa = object.getString("NOM_EMPRESA");
 
                         emp.setNom_empresa(nomempresa);
+
+                        String tipo_lectura = object.getString("TIPO_LECTURA");
+
+                        emp.setTipo_lectura(tipo_lectura);
 
                         empresas.add(emp);
 

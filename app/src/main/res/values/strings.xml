@@ -14,7 +14,7 @@
     <string name="menu_ingreso">Ingreso Usuario</string>
     <string name="menu_guardar">Guardar</string>
     <string name="menu_pasar_regla">Siguiente Regla</string>
-    <string name="menu_anular_bloqueo">Anular Bloqueo</string>
+    <string name="menu_anular_bloqueo">Anular Procedimiento</string>
     <string name="title_activity_notifications">Notificaciones</string>
     <string name="vacio">No hay Elementos</string>
     <string name="menu_acerca">Acerca de Gold Rules</string>
@@ -22,9 +22,9 @@
     <string name="menu_politicas">Políticas de Privacidad</string>
     <string name="menu_terminos">Términos y Condiciones</string>
     <string name="observaciones">Observaciones</string>
-    <string name="historial">Historial Bloqueos</string>
+    <string name="historial">Historial Procedimientos</string>
     <string name="hora">Hora Inicio</string>
-    <string name="fecha">Fecha del Bloqueo</string>
+    <string name="fecha">Fecha del Procedimiento</string>
     <string name="tipo_seccion">Tipo de Sección</string>
     <string name="seccion">Sección</string>
     <string name="sistema">Sistema de Reglas</string>
@@ -53,6 +53,7 @@
     <string name="terminado">Proceso Terminado</string>
     <string name="dialog_ok">NO</string>
     <string name="dialog_cancel">SI</string>
+    <string name="enviar_mail">Enviando Mail...</string>
 
     <!-- Beacon -->
 
