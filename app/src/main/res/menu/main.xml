@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/action_toggle"
-        android:title=""
-        app:actionLayout="@layout/switch_layout"
-        app:showAsAction="always" />
+
 		<item
-        android:id="@+id/action_settings"
+        android:id="@+id/menu_configuracion"
         android:orderInCategory="100"
-        android:title="@string/action_settings" />
+        android:icon="@drawable/ic_configuracion"
+        android:title="@string/action_settings"
+		app:iconTint="@color/colorPrimaryText"
+		app:showAsAction="always"/>
 </menu>

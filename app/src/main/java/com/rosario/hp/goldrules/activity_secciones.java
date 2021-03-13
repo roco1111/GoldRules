@@ -3,6 +3,8 @@ package com.rosario.hp.goldrules;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +20,7 @@ public class activity_secciones extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // Obtener instancia FirebaseAuth
 
-        setContentView(R.layout.lista_main_inicial);
+        setContentView(R.layout.lista_main_alternativa);
 
         setToolbar(); // Setear Toolbar como action bar
 
@@ -33,6 +35,12 @@ public class activity_secciones extends AppCompatActivity {
         }
 
         getSupportActionBar().setTitle("Secciones");
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
     }
 
     private void setToolbar() {

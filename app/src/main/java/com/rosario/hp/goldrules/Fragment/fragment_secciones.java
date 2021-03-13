@@ -2,11 +2,15 @@ package com.rosario.hp.goldrules.Fragment;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -23,6 +27,7 @@ import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonObjectRequest;
 import com.rosario.hp.goldrules.Entidades.secciones;
 import com.rosario.hp.goldrules.R;
+import com.rosario.hp.goldrules.activity_preferencias;
 import com.rosario.hp.goldrules.adapter.seccionAdapter;
 import com.rosario.hp.goldrules.include.Constantes;
 import com.rosario.hp.goldrules.include.VolleySingleton;
@@ -46,6 +51,12 @@ public class fragment_secciones extends Fragment {
     private RecyclerView.LayoutManager lManager;
     SwipeRefreshLayout swipeRefreshLayout;
     public fragment_secciones(){}
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -179,6 +190,21 @@ public class fragment_secciones extends Fragment {
             Log.d(TAG, e.getMessage());
         }
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.menu_configuracion:
+                Intent intent2 = new Intent(getActivity(), activity_preferencias.class);
+
+                getActivity().startActivity(intent2);
+                break;
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 

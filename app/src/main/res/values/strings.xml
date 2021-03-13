@@ -10,7 +10,7 @@
     <string name="configuracion">Preferencias</string>
     <string name="notificaciones">Notificaciones</string>
     <string name="nav_header_subtitle">info@espaciojahiel.com</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Preferencias</string>
     <string name="menu_ingreso">Ingreso Usuario</string>
     <string name="menu_guardar">Guardar</string>
     <string name="menu_pasar_regla">Siguiente Regla</string>

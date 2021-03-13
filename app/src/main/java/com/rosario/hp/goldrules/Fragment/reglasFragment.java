@@ -30,6 +30,7 @@ import com.google.firebase.storage.StorageReference;
 import com.rosario.hp.goldrules.Entidades.procedimiento;
 import com.rosario.hp.goldrules.MainQR;
 import com.rosario.hp.goldrules.R;
+import com.rosario.hp.goldrules.activity_secciones;
 import com.rosario.hp.goldrules.include.Constantes;
 import com.rosario.hp.goldrules.include.VolleySingleton;
 import com.rosario.hp.goldrules.reglas_activity;
@@ -66,7 +67,10 @@ public class reglasFragment extends Fragment {
     private String ls_nom_seccion;
     private String ls_tipo_sistema;
     private String ls_texto_observacion;
+    private String ls_texto_regla;
+    private String ls_tipo_lectura;
     private TextView titulo;
+    private TextView texto_regla;
     private EditText observaciones;
     private TextView titulo_observaciones;
     StorageReference storageRef;
@@ -98,10 +102,12 @@ public class reglasFragment extends Fragment {
 
         titulo_observaciones = v.findViewById(R.id.titulo_observaciones);
 
+        texto_regla = v.findViewById(R.id.texto_regla);
+
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         ls_cod_empleado     = settings.getString("cod_empleado","");
         mail = settings.getString("mail","");
-
+        ls_tipo_lectura     = settings.getString("tipo_lectura","");
         ls_cod_maquina = settings.getString("seccion","");
 
         Log.d("maquina",ls_cod_maquina);
@@ -371,8 +377,17 @@ public class reglasFragment extends Fragment {
                             ok.setText("Terminar Procedimiento");
                         }
 
-                        if( ! ls_texto_observacion.equals("null")){
+                        if( ! ls_texto_observacion.equals("null") && ! ls_texto_observacion.equals("")){
                         titulo_observaciones.setText(ls_texto_observacion);}
+
+                        ls_texto_regla = mensaje1.getString("texto_regla");
+
+                        if( ! ls_texto_regla.equals("null")){
+                            texto_regla.setVisibility(View.VISIBLE);
+                            texto_regla.setText(ls_texto_regla);}
+                        else{
+                            texto_regla.setVisibility(View.INVISIBLE);
+                        }
 
                         observaciones.setText("");
 
@@ -935,8 +950,13 @@ public class reglasFragment extends Fragment {
                     break;
             }
 
-        Intent mainIntent = new Intent().setClass(
-                getActivity(), MainQR.class);
+        Intent mainIntent;
+            if(ls_tipo_lectura.equals("0")) {
+                mainIntent = new Intent().setClass(
+                        getActivity(), activity_secciones.class);
+            }else{
+        mainIntent = new Intent().setClass(
+                getActivity(), MainQR.class);}
         startActivity(mainIntent);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -1022,8 +1042,13 @@ public class reglasFragment extends Fragment {
                     break;
             }
 
-            Intent mainIntent = new Intent().setClass(
-                    getActivity(), MainQR.class);
+            Intent mainIntent;
+            if(ls_tipo_lectura.equals("0")) {
+                mainIntent = new Intent().setClass(
+                        getActivity(), activity_secciones.class);
+            }else{
+                mainIntent = new Intent().setClass(
+                        getActivity(), MainQR.class);}
             startActivity(mainIntent);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -1244,7 +1269,13 @@ public class reglasFragment extends Fragment {
                             mensaje,
                             Toast.LENGTH_LONG).show();
 
-                    Intent mainIntent = new Intent().setClass(getActivity(), MainQR.class);
+                    Intent mainIntent;
+                    if(ls_tipo_lectura.equals("0")) {
+                        mainIntent = new Intent().setClass(
+                                getActivity(), activity_secciones.class);
+                    }else{
+                        mainIntent = new Intent().setClass(
+                                getActivity(), MainQR.class);}
                     startActivity(mainIntent);
 
                     break;

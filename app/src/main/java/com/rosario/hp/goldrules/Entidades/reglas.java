@@ -8,6 +8,7 @@ public class reglas {
     String hora;
     String completo;
     String observacion;
+    String texto_regla;
 
     public reglas(String id, String nom_empresa) {
         this.id = id;
@@ -22,6 +23,13 @@ public class reglas {
         this.id = id;
     }
 
+    public String getTexto_regla() {
+        return texto_regla;
+    }
+
+    public void setTexto_regla(String texto_regla) {
+        this.texto_regla = texto_regla;
+    }
 
     public String getDesc_regla() {
         return desc_regla;

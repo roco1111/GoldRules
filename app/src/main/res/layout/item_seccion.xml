@@ -47,31 +47,41 @@
             android:textColor="@color/colorPrimary"
             android:text="TextView"
             android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/textViewUbicacion"
+        <LinearLayout
+            android:id="@+id/idSeccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/tamanio_texto"
             android:layout_below="@id/textViewTitulo"
             android:layout_marginTop="@dimen/margin_top_item"
-            android:text="TextView"
-            />
-        <TextView
-            android:id="@+id/textViewTipoSeccion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/tamanio_texto"
-            android:layout_below="@id/textViewUbicacion"
-            android:layout_marginTop="@dimen/margin_top_item"
-            android:text="TextView"
-            />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewTipoSeccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/tamanio_texto"
+                android:layout_weight="1"
+                android:text="TextView"
+                />
+            <TextView
+                android:id="@+id/textViewUbicacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/tamanio_texto"
+                android:layout_weight="1"
+                android:text="TextView"
+                />
+
+        </LinearLayout>
+
+
+
         <TextView
             android:id="@+id/textViewSistema"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/tamanio_texto"
-            android:layout_below="@id/textViewTipoSeccion"
+            android:layout_below="@id/idSeccion"
             android:layout_marginTop="@dimen/margin_top_item"
             android:text="TextView"
             />
@@ -98,8 +108,8 @@
         android:id="@+id/view4"
         android:layout_width="fill_parent"
         android:layout_height="0.5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="7dp"
         android:background="@android:color/darker_gray"
         android:visibility="visible"
-        android:layout_below="@+id/imagen"/>
+        android:layout_below="@+id/relative2"/>
 </RelativeLayout>
